@@ -8,7 +8,7 @@
 	
 	
 	<div>
-		<form method='POST' action='/reset/<%= token %>'>
+		<form method='POST' action='/reset/<%= token %>?_method=PUT'>
 			<div class='form-group'>
 				<label for='password'>New Password</label>
 				<input class='form-control' id='password' type='password' name='password' placeholder='elemento_24'>

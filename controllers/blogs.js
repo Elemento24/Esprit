@@ -1,4 +1,3 @@
-const express = require("express");
 const { cloudinary } = require("../cloudinary");
 const Blog = require('../models/blog.js');
 const User = require('../models/user.js');
@@ -7,7 +6,7 @@ const Notification = require('../models/notification.js');
 module.exports = {
     
     // Blogs Index
-    async blogIndex(req,res,next){
+    async blogsIndex(req,res,next){
         let blogs = await Blog.paginate({},{
     		page: req.query.page || 1,
     		limit: 6,
@@ -136,7 +135,6 @@ module.exports = {
     	req.flash('success', 'Blog successfully deleted!');
         res.redirect('/blogs');
     }
-
 
 }
 

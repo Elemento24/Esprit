@@ -31,7 +31,7 @@ middlewareObj.checkBlogOwnership = function(req, res, next){
 	} else {
 		res.redirect('back');
 	}
-}
+};
 
 
 // Check Comment Ownership
@@ -51,7 +51,7 @@ middlewareObj.checkCommentOwnership = function(req,res,next){
 	} else {
 		res.redirect('back');
 	}
-}
+};
 
 middlewareObj.checkProfileOwnership = function(req,res,next){
 	if(req.isAuthenticated()){
@@ -64,6 +64,11 @@ middlewareObj.checkProfileOwnership = function(req,res,next){
 	} else {
 		res.redirect('back');
 	}
-}
+};
+
+middlewareObj.asyncErrorHandler = (fn) =>
+(req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+};
 
 module.exports = middlewareObj;

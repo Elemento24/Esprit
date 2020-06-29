@@ -91,6 +91,7 @@
                     	<div class="bubble">
                         	<h3><%= user.firstName + ' ' + user.lastName %></h3>
                         	<a id = "userMail" href="mailto: <%= user.email %>"><%= user.email %></a>
+                        	<a class="btn btn-sm btn-primary" href = "/follow/<%= user.id %>">Follow User</a>
                         	<div>
                         	    <% if(currentUser && user.id == currentUser._id){ %>
                                     <a href = "/users/<%= user._id %>/edit" id = "editUserBtn" class = "mt-2 btn btn-primary"><i class="fas fa-edit"></i>  Edit Profile</a>

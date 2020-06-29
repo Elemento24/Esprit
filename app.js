@@ -17,8 +17,8 @@ app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 
 // Requiring Schemas
 var Blog = require('./models/blog'),
-	User = require('./models/user'),
-	Comment = require('./models/comment');
+	  User = require('./models/user'),
+	  Comment = require('./models/comment');
 
 // Requiring Routes
 var indexRoutes = require('./routes/index'),
@@ -27,7 +27,7 @@ var indexRoutes = require('./routes/index'),
 	userRoutes = require('./routes/users');
 
 // MongoDB Setup
-var url = process.env.URL || 'mongodb://localhost:27017/blog_app';
+var url = process.env.URL || 'mongodb://localhost:27017/medium';
  mongoose.connect(url,{
  	useUnifiedTopology: true,
 	useNewUrlParser: true,

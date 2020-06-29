@@ -23,13 +23,13 @@ module.exports = {
     },
     
     // Edit User Profile
-    async getEditProfile(req, res, next){
+    async editProfile(req, res, next){
         let user = await User.findById(req.params.id);
         res.render('users/edit',{user});
     },
     
     // Update User Profile
-    async putEditProfile(req,res,next){
+    async updateProfile(req,res,next){
         const {username, email, avatar, firstName, lastName,
     	facebook, twitter, instagram, 
     	adminCode, about } = req.body; 
@@ -62,7 +62,7 @@ module.exports = {
     	    await blog.save();
     	}
     	
-    	let comments = Comment.find().where('author.id').equals(updatedUser._id);
+    	let comments = await Comment.find().where('author.id').equals(updatedUser._id);
     	for(const comment of comments){
     	    comment.author = author;
     	    await comment.save();
@@ -71,7 +71,7 @@ module.exports = {
         const login = util.promisify(req.login.bind(req));
         await login(user);
         req.session.success = 'Profile Updated Successfully!';
-        res.redirect('/profile');
+        res.redirect('/users/' + user._id);
     },
 
     // Follows a User

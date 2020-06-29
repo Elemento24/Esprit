@@ -47,6 +47,7 @@ module.exports = {
 		res.render('login');
 	},
 	
+	// handling login logic
 	async postLogin(req,res,next){
 		passport.authenticate('local',function(err,user,info){
 			if(err){
@@ -92,7 +93,6 @@ module.exports = {
             email
         });
         if (!user) {
-            req.session.error = 'No account with that Email!';
             return res.redirect('/forgot-password');
         }
         user.resetPasswordToken = token;
@@ -113,7 +113,7 @@ module.exports = {
         };
         await sgMail.send(msg);
 
-        req.session.success = `An Email has been sent to ${email} with further instructions!`;
+        req.flash('success',`An Email has been sent to ${email} with further instructions!`);
         res.redirect('/forgot');
     },
     
@@ -129,10 +129,10 @@ module.exports = {
             }
         });
         if (!user) {
-            req.session.error = 'Password Reset Token is invalid or has expired!';
+            req.flash('error', 'Password Reset Token is invalid or has expired!');
             return res.redirect('/forgot');
         }
-        res.render('users/reset', {
+        res.render('reset', {
             token
         });
     },
@@ -149,7 +149,7 @@ module.exports = {
             }
         });
         if (!user) {
-            req.session.error = 'Password Reset Token is invalid or has expired!';
+            req.flash('error', 'Password Reset Token is invalid or has expired!');
             return res.redirect('/forgot');
         }
         if (req.body.password === req.body.confirm) {
@@ -160,7 +160,7 @@ module.exports = {
             const login = util.promisify(req.login.bind(req));
             await login(user);
         } else {
-            req.session.error = 'Passwords do not match!';
+            req.flash('error','Passwords do not match!');
             return res.redirect(`/reset/${token}`);
         }
 
@@ -175,7 +175,7 @@ module.exports = {
 
         await sgMail.send(msg);
 
-        req.session.success = 'Password Successfully Updated!';
-        res.redirect('/');
+        req.flash('success', "Password Updated Successfully");
+        res.redirect('/blogs');
     }
 }

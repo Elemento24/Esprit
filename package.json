@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.2.1",
     "async": "^3.2.0",
     "cloudinary": "^1.11.0",
     "connect-flash": "^0.1.1",
