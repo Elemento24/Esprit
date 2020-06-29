@@ -1,0 +1,292 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Roboto");
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Eliminar en producción */
+body {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  /*background-color: #f2f2f2;*/
+  overflow-x: hidden;
+background: #7F7FD5;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.vintalight {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 90%;
+  max-width: 1200px;
+  padding: 50px 0;
+}
+
+.vintalight__container {
+  position: relative;
+  width: 90%;
+  max-width: 10.5em;
+  height: 12.25em;
+  background-color: #fff;
+  font-size: 30px;
+  box-shadow: 0 2px 6px 1px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 0.5s, margin 0.5s;
+}
+
+@media screen and (max-width: 500px) {
+  .vintalight__container {
+    max-width: 7.35em;
+    height: 8.575em;
+  }
+}
+
+.vintalight__container:nth-child(1) {
+  transform: translate(40px, 30px) rotate(-30deg);
+  z-index: 40;
+}
+
+.vintalight__container:nth-child(1):hover {
+  transform: scale(1.15) translate(40px, 30px) rotate(0);
+}
+
+@media screen and (max-width: 700px) {
+  .vintalight__container:nth-child(1) {
+    transform: translate(0) rotate(-30deg);
+  }
+  .vintalight__container:nth-child(1):hover {
+    transform: scale(1.1) translate(0) rotate(0);
+  }
+}
+
+.vintalight__container:nth-child(2) {
+  transform: translate(30px, 20px) rotate(7deg);
+  z-index: 50;
+}
+
+.vintalight__container:nth-child(2):hover {
+  transform: scale(1.15) translate(30px, 20px) rotate(0);
+}
+
+@media screen and (max-width: 700px) {
+  .vintalight__container:nth-child(2) {
+    transform: translate(0) rotate(7deg);
+  }
+  .vintalight__container:nth-child(2):hover {
+    transform: scale(1.1) translate(0) rotate(0);
+  }
+}
+
+.vintalight__container:nth-child(3) {
+  transform: translate(-20px, 20px) rotate(20deg);
+  z-index: 40;
+}
+
+.vintalight__container:nth-child(3):hover {
+  transform: scale(1.15) translate(-20px, 20px) rotate(0);
+}
+
+@media screen and (max-width: 700px) {
+  .vintalight__container:nth-child(3) {
+    transform: translate(0) rotate(20deg);
+  }
+  .vintalight__container:nth-child(3):hover {
+    transform: scale(1.1) translate(0) rotate(0);
+  }
+}
+
+.vintalight__container:nth-child(4) {
+  transform: translate(40px, -10px) rotate(10deg);
+  z-index: 30;
+}
+
+.vintalight__container:nth-child(4):hover {
+  transform: scale(1.15) translate(40px, -10px) rotate(0);
+}
+
+@media screen and (max-width: 700px) {
+  .vintalight__container:nth-child(4) {
+    transform: translate(0) rotate(10deg);
+  }
+  .vintalight__container:nth-child(4):hover {
+    transform: scale(1.1) translate(0) rotate(0);
+  }
+}
+
+.vintalight__container:nth-child(5) {
+  transform: translate(30px, -20px) rotate(-20deg);
+  z-index: 20;
+}
+
+.vintalight__container:nth-child(5):hover {
+  transform: scale(1.15) translate(30px, -20px) rotate(0);
+}
+
+@media screen and (max-width: 700px) {
+  .vintalight__container:nth-child(5) {
+    transform: translate(0) rotate(-20deg);
+  }
+  .vintalight__container:nth-child(5):hover {
+    transform: scale(1.1) translate(0) rotate(0);
+  }
+}
+
+.vintalight__container:nth-child(6) {
+  transform: translate(30px, -40px) rotate(-10deg);
+  z-index: 40;
+}
+
+.vintalight__container:nth-child(6):hover {
+  transform: scale(1.15) translate(30px, -40px) rotate(0);
+}
+
+@media screen and (max-width: 700px) {
+  .vintalight__container:nth-child(6) {
+    transform: translate(0) rotate(-10deg);
+  }
+  .vintalight__container:nth-child(6):hover {
+    transform: scale(1.1) translate(0) rotate(0);
+  }
+}
+
+.vintalight__container:hover {
+  box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+@media screen and (max-width: 700px) {
+  .vintalight__container:hover {
+    margin: 0 25px;
+  }
+}
+
+.vintalight__container:hover .vintalight__photo::before {
+  transform: scale(1);
+}
+
+.vintalight__container.active, .vintalight__container.active:hover {
+  transform: rotate(0) scale(1.25);
+}
+
+@media screen and (max-width: 500px) {
+  .vintalight__container.active, .vintalight__container.active:hover {
+    transform: rotate(0) scale(1.15);
+  }
+}
+
+.vintalight__container.active {
+  position: relative;
+}
+
+.vintalight__container.active .vintalight__photo {
+  cursor: default;
+}
+
+.vintalight__container.active .vintalight__photo::before {
+  display: none;
+}
+
+.vintalight__photo {
+  position: relative;
+  width: 9.25em;
+  height: 9.25em;
+  margin: 0.625em auto 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .vintalight__photo {
+    width: 6.475em;
+    height: 6.475em;
+    margin: 0.4375em auto 0;
+  }
+}
+
+.vintalight__photo::before {
+  content: "Read More";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 1em;
+  font-family: "Roboto", sans-serif;
+  transform: scale(0);
+  transition: all 0.25s;
+}
+
+.vintalight__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vintalight__caption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 2.375em;
+}
+
+@media screen and (max-width: 500px) {
+  .vintalight__caption {
+    height: 1.6625em;
+  }
+}
+
+.vintalight__text {
+  color: #222;
+  font-size: 1em;
+  font-family: "Nanum Pen Script", cursive;
+}
+
+.vintalight-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  z-index: 10000;
+  transition: opacity 0.5s;
+}
+
+.vintalight-overlay.active {
+  opacity: 1;
+}
+
+.vintalight__button {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  background-color: #f53d3d;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  outline: none;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: -2px 2px 1px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  cursor: pointer;
+}
+
+.blogLink{
+    display:none;
+}

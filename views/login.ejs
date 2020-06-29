@@ -1,0 +1,35 @@
+<%- include('./partials/header') %>
+
+<div class = 'container mt-4 formClass'>
+	
+	<div class = 'text-center'>
+		<h1>Login to Medium!</h1>
+	</div>
+	
+	
+	<div>
+		<form method='POST' action='/login'>
+			<div class='form-group'>
+				<label for='username'>Username</label>
+				<input class='form-control' id='username' type='text' name='username' placeholder='Elemento'>
+			</div>
+			
+			<div class='form-group'>
+				<label for='image'>Password</label>
+				<input class='form-control' id='password' type='password' name='password' placeholder='elemento_24'>
+			</div>
+			
+			<div class='form-group'>
+				<a href="/forgot" class="btn btn-primary">
+					Forgot Password
+				</a>
+				<button class='btn btn-primary float-right'>
+					Login
+				</button>
+			</div>
+		</form>
+	</div>
+	
+</div>
+
+<%- include('./partials/footer') %>

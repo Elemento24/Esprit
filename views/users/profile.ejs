@@ -1,0 +1,158 @@
+<html>
+	<head>
+		<title>Blog App</title>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		<link rel="stylesheet"	href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400,500,600,700">
+		<link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css">
+		<link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css">
+		<link rel="stylesheet"	href="/stylesheets/app.css">
+		<link rel="stylesheet"	href="/stylesheets/profile.css">
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class='container-fluid px-4'>
+				<a class="navbar-brand" href='/'>Medium</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						 
+					<a id = 'homeButton' class="navbar-nav nav-link" href="/blogs">Home</a>
+						
+					<ul class="navbar-nav ml-auto">
+						
+						<% if(!currentUser){ %>
+							<li class="nav-item active">
+								<a class="nav-link" href="/login">Login</a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/register">Sign Up</a> 
+							</li>
+						<% } else { %>
+						
+							
+							<li class="nav-item-active dropdown">
+								<a id='navNotification' class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Notifications <span class="badge badge-secondary"><%= notifications.length %></span>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<% notifications.forEach(function(notification) { %>
+                                       <a class="dropdown-item" href="/notifications/<%= notification.id %>">
+                                         <%= notification.username %> created a New Blog!
+                                       </a>
+	                        		<% }); %>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/notifications">View Past Notifications</a>
+								</div>
+							</li>
+      
+    
+                            
+                            
+							<li class="nav-item active">
+								<a class="nav-link" href="/users/<%=currentUser._id%>">Signed In As <%= currentUser.username %></a>
+							</li>					
+							<li class="nav-item active">
+								<a class="nav-link" href="/logout">Logout</a>
+							</li>
+						<% } %>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class='container mt-4'>
+			<% if(error && error.length > 0){ %>
+				<div class='alert alert-danger text-center' role='alert'>
+					<%= error %>
+				</div>
+			<% } %>
+			<% if(success && success.length > 0){ %>
+				<div class='alert alert-success text-center' role='alert'>
+					<%= success %>
+				</div>
+			<% } %>
+		</div>
+		
+		<div class="wrap">
+            <div class="right-menu">
+            	<a  class="active" href="#profile"><i class="fa fa-user"></i><span>Profile</span></a>
+            	<a href="#about"><i class="fas fa-info"></i><span>About</span></a>
+            	<a  href="#skills"><i class="fas fa-blog"></i><span>Blogs</span></a>
+            	<a  href="#activity"><i class="fas fa-comment-dots"></i><span>Activity</span></a>
+            </div>
+            <div class="content">
+                <div class="profile open animated zoomIn">
+                    <div class="avatar">
+                    	<img src="<%= user.avatar %>">
+                    	<div class="bubble">
+                        	<h3><%= user.firstName + ' ' + user.lastName %></h3>
+                        	<a id = "userMail" href="mailto: <%= user.email %>"><%= user.email %></a>
+                        	<div>
+                        	    <% if(currentUser && user.id == currentUser._id){ %>
+                                    <a href = "/users/<%= user._id %>/edit" id = "editUserBtn" class = "mt-2 btn btn-primary"><i class="fas fa-edit"></i>  Edit Profile</a>
+                                <% } %>
+                        	</div>
+                    	</div>
+                    </div>
+                </div>
+                <div class="about animated zoomIn">
+                 	<div class="avatar">
+                    	<div class="bubble">
+                        	<h3>About <%= user.firstName %></h3>
+                        	<% if(! user.about){ %>
+                        		<p><em>There's nothing to see here..</em></p>
+                        	<% }  else {%>
+                        	<p><%= user.about %></p>
+                        	<% } %>
+                    	</div>
+                    </div>
+                </div>
+                <div class="skills animated zoomIn">
+                    <div class="avatar">
+                    	<div class="bubble">
+                    		<div class="list-group mb-2">
+                    			<% var lim  = blogs.length < 10 ? blogs.length : 10 %>
+                    			<% for(var i = 0; i < lim; i++){ %>
+                    				<a class="list-group-item list-group-item-action list-group-item-success" href = "/blogs/<%= blogs[i]._id %>"><%= blogs[i].title %></a>
+                    			<% } %>
+                    		</div>
+                        	<a class = "btn btn-success btn-sm" href="/users/<%= user._id %>/blogs">View All Blogs</a>
+                    	</div>
+                    </div>
+                </div>
+                <div class="activity animated zoomIn">
+                    <div class="avatar">
+                    	<div class="bubble">
+                    		<h3>Comments</h3>
+                    		<div class="list-group">
+							    <% comments.forEach(function(comment) { %>
+							            <span class = "list-group-item-success list-group-item list-group-item-action"><%= comment.text %></span> 
+							    <% }); %>
+                    		</div>
+                    	</div>
+                    </div>
+                </div>
+            </div><!--End Content-->
+            <div class="footer">
+                <a href="<%= user.facebook %>"><i class="fab fa-facebook"></i><span>Facebook</span></a>
+            	<a href="<%= user.instagram %>"><i class="fab fa-instagram"></i><span>Instagram</span></a>
+            	<a href="<%= user.twitter %>"><i class="fa fa-twitter"></i><span>Follow</span></a>
+            	<a href="mailto: <%= user.email %>"><i class="fas fa-envelope"></i></i><span>E-Mail</span></a>
+            </div>
+        </div>
+            	
+		
+		
+	</body>
+	
+<script src="/scripts/profile.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/49b4b0b11c.js" crossorigin="anonymous"></script>
+
+</html>

@@ -1,0 +1,123 @@
+/*=========================*/
+/*Index page of Blogs*/
+/*=========================*/
+
+.cardImg{
+    height: 300px;
+    object-fit:cover;
+}
+
+@-webkit-keyframes shine {
+	100% {
+		left: 125%;
+	}
+}
+
+@keyframes shine {
+	100% {
+		left: 125%;
+	}
+}
+
+/*==========*/
+/*Navbar*/
+/*==========*/
+
+#homeButton{
+    color: white;
+}
+
+/*=======================*/
+/*New page of Blogs*/
+/*=======================*/
+
+.formClass{
+    width:50%;
+    margin:0 auto;
+}
+
+/*======================*/
+/*Show page of Blogs*/
+/*======================*/
+
+.blogDelete {
+    display: inline;
+}
+
+.card{
+    border: none;
+}
+.blogImg{
+   height:600px;
+   width: 70%;
+   object-fit:cover;
+   margin: 20px auto;
+   border-radius:20px;
+}
+
+.addNewComment{
+    border-left: 5px solid #00C851; 
+    margin:20px;
+}
+
+.addNewCommentInner{
+    margin:20px 15px;
+}
+
+
+.infoLink{
+    background-color: #343a40;
+    color: white;
+}
+
+.infoLink:hover{
+    color: black;
+}
+
+#allLikes{
+    color:white;
+}
+
+#allLikes:hover{
+    color: black;
+}
+
+@media all and (max-width: 650px){
+    .blogImg{
+        height:400px;
+        width: 80%;
+    }
+}
+
+/*======================*/
+/*Header file of Blogs*/
+/*======================*/
+
+#navNotification{
+    color: white;
+}
+
+/*======================*/
+/* User Avatar */
+/*======================*/
+
+#userAvatar{
+    border-radius: 50%; 
+    height: 400px;
+    width: 400px;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+/*======================*/
+/* Notifications Index */
+/*======================*/
+
+#notHead {
+    margin-bottom: 40px;
+}
+
+#notList {
+    margin: 0 20%;
+}
+

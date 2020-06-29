@@ -1,0 +1,214 @@
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+a,
+a:hover,
+a:active,
+a:visited,
+a:focus {
+  text-decoration: none;
+}
+/***End REset CSS*/
+
+
+body {
+  font: normal 14px/20px 'Open Sans', sans-serif;
+  background: url('/images/BG.jpg') top/cover no-repeat;
+  /*color: #333;*/
+}
+
+.wrap {
+  max-width: 750px;
+  min-height: 600px;
+  max-height: 600px;
+  margin: 100px auto;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+  background: url(/images/pro.jpeg) top/cover no-repeat;
+  /*background: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80') top/cover no-repeat;*/
+}
+
+.right-menu {
+  top: 0;
+  right: 0;
+  z-index: 1;
+  height: 100%;
+  background: #fff;
+  max-width: 120px;
+  position: absolute;
+  border-radius: 0px 3px 3px 0px;
+}
+
+.right-menu a,
+.footer a {
+  display: block;
+  text-align: center;
+  padding: 45px 28px;
+  line-height: 30px;
+  color: #B7B7B7;
+}
+
+.right-menu a span,
+.footer a span {
+  display: block;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+a.active,
+.right-menu a:hover {
+  color: #222;
+  position: relative;
+}
+
+a.active:after {
+  content: '';
+  height: 0;
+  width: 0;
+  border: 11px solid transparent;
+  position: absolute;
+  left: -21px;
+  top: 50%;
+  border-right: 11px solid #fff;
+}
+
+.right-menu a {
+  border-bottom: 1px solid #B7B7B7;
+}
+
+.right-menu a i {
+  font-size: 30px;
+}
+
+.avatar {
+  margin-right: 100px;
+  text-align: center;
+  display: block;
+  padding-top: 56px;
+}
+
+.avatar img {
+  height: 250px;
+  width: 250px;
+  box-shadow: 4px 4px rgba(0,0,0,0.25);
+  background: #fff;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.bubble {
+  background: #fff;
+  display: block;
+  width: 42%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 5px;
+  line-height: normal;
+  margin-top: 25px;
+  position: relative;
+}
+
+.bubble:after {
+  content: '';
+  top: -70px;
+  left: 45%;
+  right: 0;
+  width: 0;
+  height: 70px;
+  position: absolute;
+  border: 7px solid transparent;
+  border-bottom: 7px solid #fff;
+}
+
+.bubble h3 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.bubble a {
+  color: black;
+  font-size: 12px;
+  text-align: center;
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  min-height: 100px;
+  position: absolute;
+  border-top: 1px solid #9E9AAB;
+}
+
+.footer a:hover {
+  background: rgba(0, 0, 0, 0.2);
+  margin: 0;
+}
+
+.footer a {
+  width: 160px;
+  display: block;
+  color: #fff;
+  padding: 30px 46px;
+  border-right: 1px solid #9E9AAB;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-right: 0px;
+  float: left;
+}
+
+.footer a:last-child {
+  border-right: none;
+}
+
+.footer a i {
+  font-size: 24px;
+}
+
+.profile,
+.about,
+.skills,
+.activity{
+  display: none;
+}
+
+.profile.open,
+.about.open,
+.skills.open,
+.activity.open{
+  display: block;
+}
+
+#editUserBtn{
+  color: white;
+}
+
+#userMail{
+  color: black;
+}
+
+
+/*skill bar*/

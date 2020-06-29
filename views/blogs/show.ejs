@@ -1,0 +1,245 @@
+<%- include('../partials/header') %>
+
+	<div class = 'container-fluid' style="width: 85%;">	
+		<div class='row mt-4'>
+			
+			<div class='col-lg-3 mb-4'>
+				 <h4 class='text-center'>Submitted by <%= blog.author.username %></h4>
+				 <div class="list-group text-center">
+	            	<a href = "/users/<%= blog.author.id %>" class="list-group-item list-group-item-action infoLink"><i class="fas fa-user-circle"></i> <%= blog.author.username %>'s Profile</a>
+					<a href="/users/<%= blog.author.id %>/blogs" class="list-group-item list-group-item-action infoLink"><i class="fas fa-blog"></i> <%= blog.author.username %>'s Blogs</a>
+					<a data-target="#blogLikes" data-toggle="modal" class="list-group-item list-group-item-action infoLink" id="allLikes"><i class="fas fa-thumbs-up"></i> All Likes</a>
+	            </div>
+			</div>
+			
+
+			
+			<div class='col-lg-9 mb-4'>
+				
+				<div class = "card">
+					<img src="<%= blog.images[0].url %>" class="card-img-top blogImg" alt="Sorry, Image is not available!">
+					<hr>
+					<div class="card-body">
+						
+						<h3 class="card-title"><%= blog.title %></h3>
+						<div class="float-right">
+	                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+	                                data-target="#blogLikes">
+	                            <span>Total likes: <i class="fas fa-thumbs-up"></i> <%= blog.likes.length %></span>
+	                        </button>
+	                    </div>
+	                    <div style="padding-bottom: 10px;">
+	                        <form action="/blogs/<%= blog._id %>/like" method="POST">
+	                            <div class="btn-group">
+	                                <% if (currentUser && blog.likes.some(function (like) {
+	                                    return like.equals(currentUser._id)
+	                                })) { %>
+	                                <button class="btn btn-sm btn-primary">
+	                                    <i class="fas fa-thumbs-up"></i> Liked (<%= blog.likes.length %>)
+	                                </button>
+	                                <% } else { %>
+	                                <button class="btn btn-sm btn-secondary">
+	                                    <i class="fas fa-thumbs-up"></i> Like (<%= blog.likes.length %>)
+	                                </button>
+	                                <% } %>
+	                                <button type="button" class="btn btn-sm btn-light" data-toggle="modal"
+	                                        data-target="#blogLikes">See more details
+	                                </button>
+	                            </div>
+	                        </form>
+	                    </div>
+				    	<p class="card-text text-justify"><%- blog.content %></p>
+				    	
+				    	<p>
+	                        <em>
+	                        Submitted By <a href = "/users/<%= blog.author.id %>" ><%= blog.author.username %></a>, <%= moment(blog.createdAt).fromNow() %>
+		                    </em>
+	                    </p>
+	                    <% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+	                    	<a class='btn btn-warning btn-sm' href='/blogs/<%= blog._id %>/edit'>
+							  Edit
+							</a>
+							<form class='delete-form blogDelete' action='/blogs/<%= blog._id %>?_method=DELETE' method='POST'>
+								<input type='Submit' class='btn btn-danger btn-sm' value='Delete'>
+							</form>
+	                   <% } %>
+	                   <hr>
+					</div>
+				</div>
+				
+				<!--COMMENT SECTION START-->
+				<div class="card mt-4">
+					
+					<div class='row px-4 mt-2'>
+						<div class='col-6 mt-3'>
+							<h4>Comments <i class="fas fa-comments"></i></h4>
+						</div>
+						<div class='col-6 text-right mt-2'>
+							<a class="btn btn-success pull-right" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+							<i class="fas fa-plus"></i> Add new comment</a>
+						</div>
+					</div>
+					
+					<!--Collapse Add a comment form START-->
+					<div class="collapse" id="collapseComment">
+						<div class="card addNewComment">
+							<div class='addNewCommentInner'>
+								<% if(!currentUser) { %>
+									<h6 class = "mt-2">You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h6>
+								<% } %>
+								<% if(currentUser) { %>
+									<h4>Write your comment <i class="fas fa-pencil-alt"></i></h4>
+									<form id="add-comment-form" action="/blogs/<%= blog._id %>/comments" method="POST">
+										<div class="form-group">
+											<input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+										</div>
+										<div class="form-group">
+											<textarea class="form-control" name="comment[text]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
+										</div>
+										<div class="form-group">
+											<button class="btn btn-success btn-sm">Comment <i class="fas fa-comments"></i></button>
+										</div>
+									</form>
+								<% } %>
+							</div>
+						</div>
+					</div>
+					<!--Collapse Add a comment form END-->
+					
+					<div style='margin:0px 20px 10px 20px;'>
+						<hr>
+	
+						<!--Check if there are comments, if there are none say no comments.-->
+						<% if (blog.comments.length === 0) { %>
+						<em style="color: grey;">No comments yet.</em>
+						<% } %>
+						
+						<!--Display comments by looping through them-->
+						<% blog.comments.forEach(function(comment) { %>
+							<div class="row">
+								<div class="col-md-12 indComment">
+									<strong>
+										<% if (currentUser && currentUser._id.equals(comment.author.id) || currentUser && currentUser.isAdmin) { %>
+											<i class="fas fa-user" style='color:orange'></i>
+										<% } else { %>
+											<i class="fas fa-user"></i>
+										<% } %>
+										<!--Print out the author username-->
+										<%= comment.author.username %>
+									</strong>
+									
+									<span class="float-right"><%= moment(comment.createdAt).fromNow() %></span>
+
+									
+									<div class='row mt-1'>
+										<div class='col-9'>
+											<p class = "text-justify"><%= comment.text %></p>
+										</div>
+										<div class='col-3' >
+											<form action="/blogs/<%= blog._id %>/comments/<%= comment._id %>/like" method="POST" class="d-flex justify-content-end">
+												<div class="btn-group">
+													<% if (currentUser && comment.comLikes.some(function (like) {
+													return like.equals(currentUser._id)
+													})) { %>
+													<button class="btn btn-sm btn-primary">
+														<i class="fas fa-thumbs-up"></i> (<%= comment.comLikes.length %>)
+													</button>
+													<% } else { %>
+													<button class="btn btn-sm btn-secondary">
+													<i class="fas fa-thumbs-up"></i> (<%= comment.comLikes.length %>)
+													</button>
+													<% } %>
+												</div>
+											</form>
+										</div>
+									</div>
+										
+
+
+	
+									
+
+									<% if (currentUser && currentUser._id.equals(comment.author.id) || currentUser && currentUser.isAdmin) { %>
+						
+										<!--Edit button used for collapsing the edit comment form-->
+										<div class = "EditDeleteButton">
+											<a class="btn btn-sm btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">Edit</a>
+											
+											<!--Delete comment button-->
+											<form id="delete-form" action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline;">
+												<button class="btn btn-sm btn-danger">Delete</button>
+											</form>
+										</div>
+										
+										<!--Edit comment form-->
+										<div class="collapse" id="collapseEdit<%= comment._id %>">
+											<div class="card" style="border-left: 5px solid #ffbb33; margin-top: 20px;">
+												<div class='addNewCommentInner'>
+													<h4>Edit your comment <i class="fas fa-edit"></i></h4>
+													<form id="edit-comment-form<%= comment._id %>" action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+														<div class="form-group">
+															<input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+														</div>
+														<div class="form-group">
+															<textarea class="form-control" name="comment[text]" placeholder="Your comment text..." form="edit-comment-form<%= comment._id %>" rows="5" cols="70"><%= comment.text %></textarea>
+														</div>
+														<div class="form-group">
+															<button class="btn btn-warning btn-sm">Edit comment <i class="fas fa-comments"></i></button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+										
+									<% } %>
+									<hr>
+								</div>
+							</div>
+						<% }) %>
+					</div>
+
+				</div>
+				<!--COMMENT SECTION END-->
+				
+			</div>
+        </div>
+	</div>
+
+    <!-- Blog Likes Modal -->
+	<div id="blogLikes" class="modal fade" role="dialog">
+	    <div class="modal-dialog modal-dialog-centered">
+	        <!-- Modal content-->
+	        <div class="modal-content">
+	            <div class="modal-header">
+	            	<h4 class="modal-title">Blog likes: <%= blog.likes.length %></h4>
+	                <button type="button" class="close" data-dismiss="modal">&times;</button>
+	            </div>
+	            <div class="modal-body">
+	                <table class="table table-striped">
+	                    <thead class='bg-primary'>
+	                    <tr>
+	                        <th style='color:white;'>Liked By:</th>
+	                    </tr>
+	                    </thead>
+	                    <tbody>
+	                    <% blog.likes.forEach(function(like) { %>
+	                        <tr class='bg-light'>
+	                            <td><span class="badge"><i class="fas fa-user"></i></span> <%= like.username %></td>
+	                        </tr>
+	                    <% }); %>
+	                    <% if (blog.likes.length === 0) { %>
+	                        <tr>
+	                            <td><em>No likes yet.</em></td>
+	                        </tr>
+	                    <% } %>
+	                    </tbody>
+	                </table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+<%- include('../partials/footer') %>

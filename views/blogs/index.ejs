@@ -1,0 +1,127 @@
+	<html>
+	<head>
+		<title>Blog App</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		<link rel="stylesheet"	href="/stylesheets/app.css">
+		<link rel="stylesheet"	href="/stylesheets/index.css">
+	</head>
+	<body>
+		
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class='container-fluid px-4'>
+				<a class="navbar-brand" href='/'>Medium</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						 
+					<a id = 'homeButton' class="navbar-nav nav-link" href="/blogs">Home</a>
+						
+					<ul class="navbar-nav ml-auto">
+						
+						<% if(!currentUser){ %>
+							<li class="nav-item active">
+								<a class="nav-link" href="/login">Login</a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/register">Sign Up</a> 
+							</li>
+						<% } else { %>
+						
+							
+							<li class="nav-item-active dropdown">
+								<a id='navNotification' class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Notifications <span class="badge badge-secondary"><%= notifications.length %></span>
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<% notifications.forEach(function(notification) { %>
+                                       <a class="dropdown-item" href="/notifications/<%= notification.id %>">
+                                         <%= notification.username %> created a New Blog!
+                                       </a>
+	                        		<% }); %>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="/notifications">View Past Notifications</a>
+								</div>
+							</li>
+      
+    
+                            
+                            
+							<li class="nav-item active">
+								<a class="nav-link" href="/users/<%=currentUser._id%>">Signed In As <%= currentUser.username %></a>
+							</li>					
+							<li class="nav-item active">
+								<a class="nav-link" href="/logout">Logout</a>
+							</li>
+						<% } %>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class='container mt-4'>
+			<% if(error && error.length > 0){ %>
+				<div class='alert alert-danger text-center' role='alert'>
+					<%= error %>
+				</div>
+			<% } %>
+			<% if(success && success.length > 0){ %>
+				<div class='alert alert-success text-center' role='alert'>
+					<%= success %>
+				</div>
+			<% } %>
+		</div>
+		
+		<div class = 'container'>
+    		<div class = 'jumbotron my-5'>
+    			<div class = 'display-4'>
+    				<i class="fas fa-pen-square"></i> Welcome to Medium
+    			</div>
+    			<hr class="my-4">
+    			<div>
+    				<p>Bacon ipsum dolor amet chuck salami shank tail bresaola. Flank tri-tip spare ribs, cow ham hamburger shankle biltong picanha pork belly turducken tail salami</p>
+    			</div>
+    			<a href="/blogs/new"><div class='btni mainBtn'>Add New Blog</div></a>
+    			<a class="ml-2" href="/users"><div class='btni mainBtn'>View Users</div></a>
+    		</div>
+    	</div>
+    	
+
+		
+    	<div class="container">
+    		<div class='row'>
+    			<% blogs.docs.forEach(function(blog){ %>
+    				<div class='col-lg-4 col-md-6'>
+    					<div class="card-container">
+    						<div class="cardi">
+    							<div class="front">
+    								<h2 class="sub-title">- <%= blog.author.username %></h2>
+    								<h1 class="title"><%= blog.title %></h1>
+    								<img class="image" src="<%= blog.images[0].url %>" alt="No Image Available" />
+    							</div>
+    							<div class="back">
+    								<h3 class="synopsis">Summary</h3>
+    								<p class="para"><%= blog.summary === undefined ? 'No Summary provided by the author' : blog.summary.substring(0,250) %> ....</p>
+    								<a href = "/blogs/<%= blog.id %>"><div class="btni" id = "readMore">Read More</div></a>
+    								<span class="btni" id="comment"><i class="fas fa-comment"></i><%= blog.comments.length %></span>
+    								<span class="btni" id="like"><i class="fas fa-thumbs-up"></i><%= blog.likes.length %></span>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			<% }); %>
+    		</div>	
+    	</div>
+    	
+    	<%- include('../partials/paginate.ejs') %>
+    	
+	</body>
+	
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/49b4b0b11c.js" crossorigin="anonymous"></script>
+
+</html>

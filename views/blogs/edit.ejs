@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+
+<div class = 'container mt-4 formClass'>
+	
+	<div class = 'text-center'>
+		<h1>Edit <%= blog.title %></h1>
+	</div>
+	<div>
+		<form method='POST' action='/blogs/<%= blog._id %>?_method=PUT' id="blogEditForm" enctype="multipart/form-data">
+			<div class='form-group'>
+				<label for='title'>Title</label>
+				<input class='form-control' id='title' type='text' name='title' value = '<%= blog.title %>'>
+			</div>
+			
+			<!--<div class='form-group'>-->
+			<!--	<label for='image'>Image URL</label>-->
+			<!--	<input class='form-control' id='image' type='text' name='blog[image]' value = '<%= blog.image %>'>-->
+			<!--</div>-->
+			
+			<div class='form-group'>
+				<label for='imageUpload'>Images</label>
+				<input class='form-control' id='imageUpload' type='file' name='images' accept="images/*" multiple>
+				<div>
+	                <% blog.images.forEach(function(image,i){ %>
+	                    <img src="<%= image.url %>" alt="" width='100px'>
+	                    <label for="image<%= i %>">Delete?</label>
+	                    <input type="checkbox" name="deleteImages[]" class="imageDeleteCheckbox" id="image<%= i %>" value="<%= image.public_id %>">
+                    <% });  %>
+				</div>
+			</div>
+			
+			<div class='form-group'>
+				<label for = 'content'>Content</label>
+			    <textarea id="content" name="content" rows="15"><%- blog.content %></textarea>
+			</div>
+			
+			<div class='form-group'>
+				<label for = 'summary'>Summary</label>
+				<textarea class = 'form-control' id = "summary" type ='text' name='summary' rows='4' ><%= blog.summary %>
+				</textarea>
+			</div>
+			
+			<div class='form-group'>
+				<button class='btn btn-primary float-right'>
+					Submit!
+				</button>
+			</div>
+		</form>
+	</div>
+	
+</div>
+
+<script src="/scripts/blogEdit.js"></script>
+
+
+<%- include('../partials/footer') %>

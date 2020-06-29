@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+
+<div class = 'container mt-4 formClass'>
+	
+	<div class = 'text-center'>
+		<h1>Edit <%= user.username %>'s Profile</h1>
+	</div>
+  
+	<div>
+		<form action = '/users/<%= user._id %>?_method=PUT' method = 'POST'>
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" name='username' class="form-control" id="username" value="<%= user.username %>" required>
+			</div>
+			<div class = 'form-group'>
+				<label for= 'firstName'>First Name</label>
+				<input type = 'text' name = 'firstName' class = 'form-control' value="<%= user.firstName %>" required>
+			</div>
+			<div class = 'form-group'>
+				<label for= 'lastName'>Last Name</label>
+				<input type = 'text' name = 'lastName' class = 'form-control' value="<%= user.lastName %>" required>
+			</div>
+			<div class="form-group">
+                <label for="email">E-Mail</label>
+                <input class="form-control" type="email" id="email" name="email" value="<%= user.email %>" required>
+            </div>
+            <div class="form-group">
+                <label for="avatar">Avatar</label>
+                <input class="form-control" type="text" id="avatar" name="avatar" value="<%= user.avatar %>">
+            </div>
+			<div class="form-group">
+                <label for="about">About You</label>
+                <input class="form-control" type="text" id="about" name="about" value="<%= user.about %>">
+            </div>
+            <div class="form-group">
+                <label for="facebook">Facebook</label>
+                <input class="form-control" type="text" id="facebook" name="facebook" value="<%= user.facebook %>">
+            </div>
+            <div class="form-group">
+                <label for="instagram">Instagram</label>
+                <input class="form-control" type="text" id="instagram" name="instagram" value = "<%= user.instagram %>">
+            </div>
+            <div class="form-group">
+                <label for="twitter">Twitter</label>
+                <input class="form-control" type="text" id="twitter" name="twitter" value="<% user.twitter %>">
+            </div>
+			<div class="form-group">
+				<label for="adminCode">Admin Code</label>
+				<input type="password" name = 'adminCode' class="form-control" id="adminCode" placeholder="Only for Admin">
+			</div>
+			<button type="submit" class="btn btn-primary float-right mb-5">Submit</button>
+		</form>
+	</div>
+</div>
+
+<%- include('../partials/footer') %>
