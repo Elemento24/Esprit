@@ -7,7 +7,7 @@
 	</div>
   
 	<div>
-		<form action = '/register' method = 'POST'>
+		<form action = '/register' method = 'POST' enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="username">Username</label>
 				<input type="text" name='username' class="form-control" id="username" placeholder="Elemento" required>
@@ -24,10 +24,17 @@
                 <label for="email">E-Mail</label>
                 <input class="form-control" type="email" id="email" name="email" placeholder="learntocode123@gmail.com" required>
             </div>
+            
+            <!--<div class="form-group">-->
+            <!--    <label for="avatar">Avatar</label>-->
+            <!--    <input class="form-control" type="text" id="avatar" name="avatar" placeholder="https://i.stack.imgur.com/l60Hf.png">-->
+            <!--</div>-->
+            
             <div class="form-group">
                 <label for="avatar">Avatar</label>
-                <input class="form-control" type="text" id="avatar" name="avatar" placeholder="https://i.stack.imgur.com/l60Hf.png">
+                <input class="form-control" type="file" id="avatar" name="avatar">
             </div>
+            
 			<div class="form-group">
 				<label for="password">Password</label>
 				<input type="password" name = 'password' class="form-control" id="password" placeholder="elemento_24" minlength = "6">

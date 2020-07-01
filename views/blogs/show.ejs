@@ -4,20 +4,53 @@
 		<div class='row mt-4'>
 			
 			<div class='col-lg-3 mb-4'>
-				 <h4 class='text-center'>Submitted by <%= blog.author.username %></h4>
-				 <div class="list-group text-center">
-	            	<a href = "/users/<%= blog.author.id %>" class="list-group-item list-group-item-action infoLink"><i class="fas fa-user-circle"></i> <%= blog.author.username %>'s Profile</a>
-					<a href="/users/<%= blog.author.id %>/blogs" class="list-group-item list-group-item-action infoLink"><i class="fas fa-blog"></i> <%= blog.author.username %>'s Blogs</a>
-					<a data-target="#blogLikes" data-toggle="modal" class="list-group-item list-group-item-action infoLink" id="allLikes"><i class="fas fa-thumbs-up"></i> All Likes</a>
+				<div>
+					 <h4 class='text-center'>Submitted by <%= blog.author.username %></h4>
+					 <div class="list-group text-center">
+		            	<a href = "/users/<%= blog.author.id %>" class="list-group-item list-group-item-action infoLink"><i class="fas fa-user-circle"></i> <%= blog.author.username %>'s Profile</a>
+						<a href="/users/<%= blog.author.id %>/blogs" class="list-group-item list-group-item-action infoLink"><i class="fas fa-blog"></i> <%= blog.author.username %>'s Blogs</a>
+						<a data-target="#blogLikes" data-toggle="modal" class="list-group-item list-group-item-action infoLink" id="allLikes"><i class="fas fa-thumbs-up"></i> All Likes</a>
+		            </div>
+				</div>
+	            <div class="d-none d-lg-block">
+					<h4 class='text-center mt-5'><strong>Summary</strong></h4>
+		            <div>
+		            	<% if(blog.summary.length) { %>
+		            		<p class = "text-justify"><%= blog.summary %></p>
+		            	<% } else { %>
+		            		<p><em>No Summary Provided by the Author</em></p>
+		            	<% } %>
+		            </div>
 	            </div>
 			</div>
-			
-
-			
+	
+			<!-- Carousel for images -->
 			<div class='col-lg-9 mb-4'>
-				
 				<div class = "card">
-					<img src="<%= blog.images[0].url %>" class="card-img-top blogImg" alt="Sorry, Image is not available!">
+					
+					<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					    <ol class="carousel-indicators">
+					    	<% for(var i = 0; i < blog.images.length; i++){ %>
+						    	<li data-target="#carouselExampleIndicators" data-slide-to="<%= i %>" class="active"></li>
+						    <% } %>
+						</ol>
+						<div class='carousel-inner'>
+					    	<% for(var i = 0; i < blog.images.length; i++){ %>
+								<div class="carousel-item  <%= i === 0 ? 'active' : '' %>">
+									<img src="<%= blog.images[i].url %>" class="card-img-top blogImg d-block" alt="Sorry, Image is not available!">
+								</div>
+							<% }; %>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+					
 					<hr>
 					<div class="card-body">
 						
@@ -50,6 +83,17 @@
 	                    </div>
 				    	<p class="card-text text-justify"><%- blog.content %></p>
 				    	
+			            <div class="d-lg-none">
+							<h4 class='text-center mt-3'><strong>Summary</strong></h4>
+				            <div>
+				            	<% if(blog.summary.length) { %>
+				            		<p class = "text-justify" style="font-size: 14px;"><%= blog.summary %></p>
+				            	<% } else { %>
+				            		<p><em>No Summary Provided by the Author</em></p>
+				            	<% } %>
+				            </div>
+			            </div>
+				    	
 				    	<p>
 	                        <em>
 	                        Submitted By <a href = "/users/<%= blog.author.id %>" ><%= blog.author.username %></a>, <%= moment(blog.createdAt).fromNow() %>
@@ -66,6 +110,8 @@
 	                   <hr>
 					</div>
 				</div>
+				
+
 				
 				<!--COMMENT SECTION START-->
 				<div class="card mt-4">

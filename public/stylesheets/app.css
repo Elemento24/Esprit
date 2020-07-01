@@ -47,9 +47,14 @@
 .card{
     border: none;
 }
+
+.carousel.slide{
+    margin: 20px auto;
+    width: 70%;
+}
+
 .blogImg{
    height:600px;
-   width: 70%;
    object-fit:cover;
    margin: 20px auto;
    border-radius:20px;

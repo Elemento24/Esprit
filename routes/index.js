@@ -1,5 +1,8 @@
 var express = require('express'),
 	router = express.Router(),
+	multer = require('multer'),
+	{storage} = require('../cloudinary'),
+	upload = multer({storage}),
 	{asyncErrorHandler} = require('../middleware'),
 	{landingPage, 
 	getRegister,
@@ -21,7 +24,7 @@ router.get('/register', getRegister);
 
 
 // Handling the Register Logic
-router.post('/register', asyncErrorHandler(postRegister));
+router.post('/register', upload.single('avatar') ,asyncErrorHandler(postRegister));
 
 
 // Show Login Form

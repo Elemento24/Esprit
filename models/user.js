@@ -9,8 +9,11 @@ var UserSchema = new mongoose.Schema({
     },
     password: String,
     avatar: {
-        type: String,
-        default: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'
+        secure_url: {
+            type: String,
+            default: '/images/default-profile.jpeg'
+        },
+        public_id: String
     },
     about : String,
     resetPasswordToken: String,

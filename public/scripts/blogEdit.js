@@ -14,9 +14,17 @@ blogEditForm.addEventListener('submit', function(event) {
 
     // Figure out if the form can be submitted or not
     let newTotal = existingImgs - imgDeletions + imageUploads;
+    let error = document.getElementById('error')
     if (newTotal > 4) {
         event.preventDefault();
-        let removalAmt = newTotal - 4
-        alert(`You need to remove at least ${removalAmt} (more) image${removalAmt ===1 ? '':'s'}!`);
+        let removalAmt = newTotal - 4;
+        $('#error').css('display','block');
+        error.textContent = `You need to remove at least ${removalAmt} (more) image${removalAmt ===1 ? '':'s'}!`;
+    } else if (newTotal === 0){
+        event.preventDefault();
+        $('#error').css('display','block');
+        error.textContent = 'Minimum 1 Image is Required!';
+    } else {
+        $('#error').css('display','none');
     }
 });

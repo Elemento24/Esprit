@@ -1,6 +1,10 @@
 var Blog = require('../models/blog'),
 	Comment = require('../models/comment');
 
+var {
+    cloudinary
+} = require('../cloudinary');
+
 var middlewareObj = {};
 
 // To check if the user is Logged in or not
@@ -69,6 +73,10 @@ middlewareObj.checkProfileOwnership = function(req,res,next){
 middlewareObj.asyncErrorHandler = (fn) =>
 (req, res, next) => {
     Promise.resolve(fn(req, res, next)).catch(next);
+};
+
+middlewareObj.deleteProfileImage = async req => {
+    if (req.file) await cloudinary.v2.uploader.destroy(req.file.public_id);
 };
 
 module.exports = middlewareObj;

@@ -1,6 +1,7 @@
 <%- include('../partials/header') %>
 
 <div class = 'container mt-4 formClass'>
+	<div id = "error" class = "alert alert-danger text-center mt-2" style = "display: none;" role = "alert"></div>
 	
 	<div class = 'text-center'>
 		<h1>Create A New Blog!</h1>
@@ -8,29 +9,20 @@
 	
 	
 	<div id="editor">
-		<form method='POST' action='/blogs' enctype = "multipart/form-data">
+		<form method='POST' action='/blogs' enctype = "multipart/form-data" id = "newBlogForm">
 			<div class='form-group'>
 				<label for='title'>Title</label>
-				<input class='form-control' id='title' type='text' name='blog[title]' placeholder='CSS Flexbox: A Boon!'>
+				<input class='form-control' id='title' type='text' name='blog[title]' placeholder='CSS Flexbox: A Boon!' required>
 			</div>
-			
-			<!--<div class='form-group'>-->
-			<!--	<label for='image'>Image URL</label>-->
-			<!--	<input class='form-control' id='image' type='text' name='blog[image]' placeholder='https://images.unsplash.com/photo-1591297349122-42962d34bc38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80'>-->
-			<!--</div>-->
-			
 			
 			<div class='form-group'>
 				<label for='image'>Images</label>
-				<input class='form-control' id='image' accept='images/*' type='file' name='images' multiple>
+				<input class='form-control' id='image' accept='images/*' type='file' name='images' multiple required>
 			</div>
-			
 		
 			<div class='form-group'>
 				<label for = 'content'>Content</label>
-			    <textarea id="content" name="blog[content]" rows="15">
-					Hello Guys! This is my first blog on Medium. Very excited to be here...
-				</textarea>
+			    <textarea id="content" name="blog[content]" rows="15" placeholder="Content can't be empty" required>Hello Guys! This is my first blog on Medium. Very excited to be here...</textarea>
 			</div>
 			
 			<div class='form-group'>
@@ -39,7 +31,7 @@
 			</div>
 			
 			<div class='form-group'>
-				<button class='btn btn-primary float-right'>
+				<button id = "newSubmit" class='btn btn-primary float-right'>
 					Submit!
 				</button>
 			</div>
@@ -47,5 +39,7 @@
 	</div>
 	
 </div>
+
+<script src = "/scripts/blogNew.js"></script>
 	
 <%- include('../partials/footer') %>

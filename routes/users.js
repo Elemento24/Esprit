@@ -1,5 +1,8 @@
 var express = require('express'),
 	router = express.Router(),
+	multer = require('multer'),
+	{storage} = require('../cloudinary'),
+	upload = multer({storage}),
 	User = require('../models/user'),
 	Comment = require('../models/comment'),
 	Blog = require("../models/blog"),
@@ -27,7 +30,7 @@ router.get('/users/:id/edit', checkProfileOwnership, asyncErrorHandler(editProfi
 
 
 // Update User Profile
-router.put('/users/:id', checkProfileOwnership, asyncErrorHandler(updateProfile));
+router.put('/users/:id', checkProfileOwnership, upload.single('avatar'), asyncErrorHandler(updateProfile));
 
 
 // Follows a User

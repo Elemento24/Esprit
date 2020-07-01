@@ -7,7 +7,7 @@
 	</div>
   
 	<div>
-		<form action = '/users/<%= user._id %>?_method=PUT' method = 'POST'>
+		<form action = '/users/<%= user._id %>?_method=PUT' method = 'POST' enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="username">Username</label>
 				<input type="text" name='username' class="form-control" id="username" value="<%= user.username %>" required>
@@ -24,10 +24,18 @@
                 <label for="email">E-Mail</label>
                 <input class="form-control" type="email" id="email" name="email" value="<%= user.email %>" required>
             </div>
+            
+            <!--<div class="form-group">-->
+            <!--    <label for="avatar">Avatar</label>-->
+            <!--    <input class="form-control" type="text" id="avatar" name="avatar" value="<%= user.avatar %>">-->
+            <!--</div>-->
+            
             <div class="form-group">
                 <label for="avatar">Avatar</label>
-                <input class="form-control" type="text" id="avatar" name="avatar" value="<%= user.avatar %>">
+                <small>(This Deletes Existing Image)</small>
+                <input class="form-control" type="file" id="avatar" name="avatar">
             </div>
+            
 			<div class="form-group">
                 <label for="about">About You</label>
                 <input class="form-control" type="text" id="about" name="about" value="<%= user.about %>">

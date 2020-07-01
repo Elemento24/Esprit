@@ -2,12 +2,17 @@ var mongoose = require("mongoose");
 var mongoosePaginate = require("mongoose-paginate");
 
 var BlogSchema = new mongoose.Schema({
-	title: String,
+	title: {
+		type: String,
+		required: true
+	},
 	images: [{
 		url: String,
 		public_id: String
 	}],
-	content: String,
+	content: {
+		type: String
+	},
 	createdAt:{
 		type: Date,
 		default: Date.now
