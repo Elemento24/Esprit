@@ -1,77 +1,88 @@
 <%- include('./partials/header') %>
 
-<div class = 'container-fluid mt-4 formClass' style="width: 90%; margin: 0 auto;">
+<div class = 'container-fluid mt-4 formClass'>
 	
 	<div class = 'text-center'>
 		<h1>Create a New Account!</h1>
 	</div>
   
-	<div>
+	<div class="mt-5">
 		<form action = '/register' method = 'POST' enctype="multipart/form-data">
 			<div class="form-row">
-				<div class="col-md-4">
-					
+				
+				<div class="col-md-4 text-center" style="margin-top:30px;">
+		            <div class="form-group">
+		                <label for="avatar" class="custom-file-upload"><i class="fas fa-camera-retro"></i></label>
+		                <input class="form-control" type="file" id="avatar" name="avatar" style="display: none;">
+		            </div>
 				</div>
+				
 				<div class="col-md-8">
+					<div class="form-group">
+						<label for="username">Username<i class="fas fa-asterisk"></i></label>
+						<input type="text" name='username' class="form-control" id="username" value="<%= username %>" placeholder="Elemento" required>
+					</div>
 					
+					<div class='form-row'>
+						<div class = 'form-group col-md-6'>
+							<label for= 'firstName'>First Name<i class="fas fa-asterisk"></i></label>
+							<input type = 'text' name = 'firstName' class = 'form-control' placeholder = 'Colt' value="<%= firstName %>" required>
+						</div>
+						<div class = 'form-group col-md-6'>
+							<label for= 'lastName'>Last Name<i class="fas fa-asterisk"></i></label>
+							<input type = 'text' name = 'lastName' class = 'form-control' placeholder = 'Steele' value="<%= lastName %>" required>
+						</div>						
+					</div>
+					
+					<div class='form-row'>
+						<div class="form-group col-md-6">
+			                <label for="email">E-Mail<i class="fas fa-asterisk"></i></label>
+			                <input class="form-control" type="email" id="email" name="email" placeholder="learntocode123@gmail.com" value="<%= email %>" required>
+			            </div>
+						<div class="form-group col-md-6">
+							<label for="password">Password<i class="fas fa-asterisk"></i></label>
+							<input type="password" name = 'password' class="form-control" id="password" placeholder="elemento_24" minlength = "6">
+						</div>						
+					</div>
+				
+		            <div class = "form-row">
+			            <div class="form-group col-md-4">
+			                <label for="facebook">Facebook</label>
+			                <input class="form-control" type="text" id="facebook" name="facebook" placeholder="Facebook Link" value="<%= facebook %>">
+			            </div>
+			            <div class="form-group col-md-4">
+			                <label for="instagram">Instagram</label>
+			                <input class="form-control" type="text" id="instagram" name="instagram" placeholder="Instagram Link" value="<%= instagram %>">
+			            </div>
+			            <div class="form-group col-md-4">
+			                <label for="twitter">Twitter</label>
+			                <input class="form-control" type="text" id="twitter" name="twitter" placeholder="Twitter Link" value="<%= twitter %>">
+			            </div>
+			        </div>
+			        
+		        	<div class="form-group">
+		                <label for="about">About You</label>
+		                <textarea class="form-control" type="text" id="about" rows=4 name="about" placeholder="Tell us something about you..."><%= about %></textarea>
+		            </div>
+		            
+		            <div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <div class="input-group-text">
+					      <input type="checkbox" aria-label="Checkbox for following text input">
+					    </div>
+					  </div>
+					  <input type="password" class="form-control" id = "admin-code" name = 'adminCode' aria-label="Text input with checkbox" placeholder = "Only for Admin ..." disabled>
+					</div>
+					
+					<button type="submit" class="btn btn-primary float-right mb-5">Sign Up</button>
 				</div>
+				
 			</div>
-			<div class="form-group">
-				<label for="username">Username</label>
-				<input type="text" name='username' class="form-control" id="username" value="<%= username %>" placeholder="Elemento" required>
-			</div>
-			<div class = 'form-group'>
-				<label for= 'firstName'>First Name</label>
-				<input type = 'text' name = 'firstName' class = 'form-control' placeholder = 'Colt' value="<%= firstName %>" required>
-			</div>
-			<div class = 'form-group'>
-				<label for= 'lastName'>Last Name</label>
-				<input type = 'text' name = 'lastName' class = 'form-control' placeholder = 'Steele' value="<%= lastName %>" required>
-			</div>
-			<div class="form-group">
-                <label for="email">E-Mail</label>
-                <input class="form-control" type="email" id="email" name="email" placeholder="learntocode123@gmail.com" value="<%= email %>" required>
-            </div>
-            <div class="form-group">
-                <label for="avatar" class="custom-file-upload">Avatar</label>
-                <input class="form-control" type="file" id="avatar" name="avatar" style="display: none;">
-            </div>
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" name = 'password' class="form-control" id="password" placeholder="elemento_24" minlength = "6">
-			</div>
-			<div class="form-group">
-                <label for="about">About You</label>
-                <input class="form-control" type="text" id="about" name="about" placeholder="Tell us something about you..." value="<%= about %>">
-            </div>
-            <div class="form-group">
-                <label for="facebook">Facebook</label>
-                <input class="form-control" type="text" id="facebook" name="facebook" placeholder="Facebook Profile Link" value="<%= facebook %>">
-            </div>
-            <div class="form-group">
-                <label for="instagram">Instagram</label>
-                <input class="form-control" type="text" id="instagram" name="instagram" placeholder="Instagram Profile Link" value="<%= instagram %>">
-            </div>
-            <div class="form-group">
-                <label for="twitter">Twitter</label>
-                <input class="form-control" type="text" id="twitter" name="twitter" placeholder="Twitter Profile Link" value="<%= twitter %>">
-            </div>
-			<div class="form-group">
-				<label for="adminCode">Admin Code</label>
-				<input type="password" name = 'adminCode' class="form-control" id="adminCode" placeholder="Only for Admin" value="<%= adminCode %>">
-			</div>
-			<button type="submit" class="btn btn-primary float-right">Sign Up</button>
+			
 		</form>
 	</div>
 </div>
 
-<style>
-	.custom-file-upload{
-		border: 2px solid #ccc;
-	    display: inline-block;
-	    padding: 6px 12px;
-	    cursor: pointer;
-	}
-</style>
+<script src = "/scripts/user-register.js"></script>
 
 <%- include('./partials/footer') %>

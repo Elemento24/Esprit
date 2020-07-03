@@ -1,27 +1,28 @@
 <%- include('../partials/header') %>
 
-<div class = 'container mt-4 formClass'>
+<div class = 'container-fluid mt-4 formClass'>
 	<div id = "error" class = "alert alert-danger text-center mt-2" style = "display: none;" role = "alert"></div>
 	
-	<div class = 'text-center'>
+	<div class = 'text-center mb-5'>
 		<h1>Create A New Blog!</h1>
 	</div>
 	
 	
 	<div id="editor">
 		<form method='POST' action='/blogs' enctype = "multipart/form-data" id = "newBlogForm">
-			<div class='form-group'>
-				<label for='title'>Title</label>
-				<input class='form-control' id='title' type='text' name='blog[title]' placeholder='CSS Flexbox: A Boon!' required>
+			
+			<div class='form-group text-center'>
+				<label for='image' class="custom-file-upload blogFile"><i class="fas fa-camera-retro blogIcon"></i></label>
+				<br><small>(At Least One Image is Required)</small>
+				<input class='form-control' id='image' accept='images/*' type='file' name='images' style="display: none;" multiple required>
 			</div>
 			
 			<div class='form-group'>
-				<label for='image'>Images</label>
-				<input class='form-control' id='image' accept='images/*' type='file' name='images' multiple required>
+				<label for='title'>Title<i class="fas fa-asterisk"></i></label>
+				<input class='form-control' id='title' type='text' name='blog[title]' placeholder='CSS Flexbox: A Boon!' required>
 			</div>
-		
 			<div class='form-group'>
-				<label for = 'content'>Content</label>
+				<label for = 'content'>Content<i class="fas fa-asterisk"></i></label>
 			    <textarea id="content" name="blog[content]" rows="15" placeholder="Content can't be empty" required>Hello Guys! This is my first blog on Medium. Very excited to be here...</textarea>
 			</div>
 			
@@ -31,7 +32,7 @@
 			</div>
 			
 			<div class='form-group'>
-				<button id = "newSubmit" class='btn btn-primary float-right'>
+				<button id = "newSubmit" class='btn btn-primary float-right mb-5'>
 					Submit!
 				</button>
 			</div>

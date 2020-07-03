@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var mongoosePaginate = require("mongoose-paginate");
+var Comment = require("./comment.js");
 
 var BlogSchema = new mongoose.Schema({
 	title: {
@@ -34,6 +35,17 @@ var BlogSchema = new mongoose.Schema({
 		ref: 'User'
 	}]
 });
+
+
+BlogSchema.pre('remove', async function() {
+	await Comment.remove({
+		_id: {
+			$in: this.comments
+		}
+	});
+});
+
+
 
 BlogSchema.plugin(mongoosePaginate);
 
