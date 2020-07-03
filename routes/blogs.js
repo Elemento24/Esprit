@@ -14,7 +14,7 @@ var express = require("express"),
 		blogEdit,
 		blogUpdate,
 		blogDestroy	}   = require("../controllers/blogs"),
-	{ asyncErrorHandler, isLoggedIn, checkBlogOwnership } = require("../middleware");
+	{ asyncErrorHandler, isLoggedIn, isBlogOwner } = require("../middleware");
 
 
 // Index Route
@@ -37,15 +37,15 @@ router.post("/:id/like", isLoggedIn, asyncErrorHandler(blogLike));
 
 
 // Edit Route
-router.get('/:id/edit', checkBlogOwnership, asyncErrorHandler(blogEdit));
+router.get('/:id/edit', asyncErrorHandler(isBlogOwner), asyncErrorHandler(blogEdit));
 
 
 // Update Route
-router.put('/:id', checkBlogOwnership, upload.array('images',4), asyncErrorHandler(blogUpdate));
+router.put('/:id', asyncErrorHandler(isBlogOwner), upload.array('images',4), asyncErrorHandler(blogUpdate));
 
 
 // Destroy Route
-router.delete('/:id', checkBlogOwnership , asyncErrorHandler(blogDestroy));
+router.delete('/:id', asyncErrorHandler(isBlogOwner), asyncErrorHandler(blogDestroy));
 
 
 module.exports = router;

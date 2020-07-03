@@ -1,6 +1,7 @@
 const	User = require('../models/user'),
 	    Comment = require('../models/comment'),
     	Blog = require("../models/blog"),
+    	{ cloudinary } = require("../cloudinary"),
 	    Notification = require("../models/notification");
 	    
 const util = require('util');
@@ -25,7 +26,9 @@ module.exports = {
     // Edit User Profile
     async editProfile(req, res, next){
         let user = await User.findById(req.params.id);
-        res.render('users/edit',{user});
+        res.render('users/edit',{
+            user
+        });
     },
     
     // Update User Profile
@@ -33,7 +36,7 @@ module.exports = {
         const {username, email, avatar, firstName, lastName,
     	facebook, twitter, instagram, 
     	adminCode, about } = req.body; 
-    	const user = res.locals.currentUser;
+    	const {user} = res.locals;
 	    
     	user.username = username;
     	user.email = email;
@@ -46,6 +49,12 @@ module.exports = {
     	if(about) user.about = about;
     	if(adminCode) user.adminCode = adminCode;
     	
+    	if(req.file){
+			if(user.avatar.public_id) await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+			const { secure_url, public_id } = req.file;
+			user.avatar = { secure_url, public_id };
+		}
+    	
     	if(user.adminCode === process.env.ADMIN_CODE){
     		user.isAdmin = true;
     	}
@@ -54,6 +63,7 @@ module.exports = {
     		id: user._id,
     		username: user.username
     	};
+    	
     	const updatedUser = await user.save();
     	
     	let blogs = await Blog.find().where('author.id').equals(updatedUser._id);

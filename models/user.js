@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var validator = require("mongoose-unique-validator");
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new mongoose.Schema({
@@ -7,7 +8,6 @@ var UserSchema = new mongoose.Schema({
         unique : true,
         required: true
     },
-    password: String,
     avatar: {
         secure_url: {
             type: String,
@@ -18,10 +18,7 @@ var UserSchema = new mongoose.Schema({
     about : String,
     resetPasswordToken: String,
     resetPasswordExpires: Date,
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
+    adminCode: String,
     firstName: {
         type: String,
         required:true
@@ -33,7 +30,8 @@ var UserSchema = new mongoose.Schema({
     email:{
         type: String,
         unique: true,
-        required: true
+        required: true,
+        uniqueCaseInsensitive: true
     },
     facebook:{
         type: String,
@@ -55,5 +53,5 @@ var UserSchema = new mongoose.Schema({
 });
     
 UserSchema.plugin(passportLocalMongoose);
-
+UserSchema.plugin(validator);
 module.exports = mongoose.model('User',UserSchema);

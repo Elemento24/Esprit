@@ -99,7 +99,7 @@
 	                        Submitted By <a href = "/users/<%= blog.author.id %>" ><%= blog.author.username %></a>, <%= moment(blog.createdAt).fromNow() %>
 		                    </em>
 	                    </p>
-	                    <% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+	                    <% if(currentUser && blog.author.id.equals(currentUser._id) || currentUser && currentUser.adminCode === process.env.ADMIN_CODE){ %>
 	                    	<a class='btn btn-warning btn-sm' href='/blogs/<%= blog._id %>/edit'>
 							  Edit
 							</a>
@@ -165,7 +165,7 @@
 							<div class="row">
 								<div class="col-md-12 indComment">
 									<strong>
-										<% if (currentUser && currentUser._id.equals(comment.author.id) || currentUser && currentUser.isAdmin) { %>
+										<% if (currentUser && currentUser._id.equals(comment.author.id)) { %>
 											<i class="fas fa-user" style='color:orange'></i>
 										<% } else { %>
 											<i class="fas fa-user"></i>
@@ -205,7 +205,7 @@
 	
 									
 
-									<% if (currentUser && currentUser._id.equals(comment.author.id) || currentUser && currentUser.isAdmin) { %>
+									<% if (currentUser && currentUser._id.equals(comment.author.id) || currentUser && currentUser.adminCode === process.env.ADMIN_CODE) { %>
 						
 										<!--Edit button used for collapsing the edit comment form-->
 										<div class = "EditDeleteButton">

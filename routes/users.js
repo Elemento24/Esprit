@@ -7,7 +7,13 @@ var express = require('express'),
 	Comment = require('../models/comment'),
 	Blog = require("../models/blog"),
 	Notification = require("../models/notification"),
-	{checkProfileOwnership,isLoggedIn,asyncErrorHandler} = require('../middleware'),
+	{
+		isProfileOwner,
+		isLoggedIn,
+		asyncErrorHandler,
+		isValidPassword,
+		changePassword	} = require('../middleware'),
+	
 	{	getUsers,
 		getProfile,
 		editProfile,
@@ -26,11 +32,16 @@ router.get('/users/:id', asyncErrorHandler(getProfile));
 
 
 // Edit User Profile
-router.get('/users/:id/edit', checkProfileOwnership, asyncErrorHandler(editProfile));
+router.get('/users/:id/edit', isProfileOwner, asyncErrorHandler(editProfile));
 
 
 // Update User Profile
-router.put('/users/:id', checkProfileOwnership, upload.single('avatar'), asyncErrorHandler(updateProfile));
+router.put('/users/:id',
+	isProfileOwner,
+	upload.single('avatar'),
+	asyncErrorHandler(isValidPassword),
+	asyncErrorHandler(changePassword),
+	asyncErrorHandler(updateProfile));
 
 
 // Follows a User

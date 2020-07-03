@@ -2,6 +2,8 @@
 
 <div class = 'container mt-4 formClass'>
 	
+	<div class='alert alert-danger text-center' id="error" role='alert' style="display:none;"></div>
+	
 	<div class = 'text-center'>
 		<h1>Edit <%= user.username %>'s Profile</h1>
 	</div>
@@ -10,25 +12,20 @@
 		<form action = '/users/<%= user._id %>?_method=PUT' method = 'POST' enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="username">Username</label>
-				<input type="text" name='username' class="form-control" id="username" value="<%= user.username %>" required>
+				<input type="text" name='username' class="form-control" id="username" value="<%= user.username %>" placeholder="Elemento"autofocus required>
 			</div>
 			<div class = 'form-group'>
 				<label for= 'firstName'>First Name</label>
-				<input type = 'text' name = 'firstName' class = 'form-control' value="<%= user.firstName %>" required>
+				<input type = 'text' name = 'firstName' class = 'form-control' value="<%= user.firstName %>" placeholder="Colt" required>
 			</div>
 			<div class = 'form-group'>
 				<label for= 'lastName'>Last Name</label>
-				<input type = 'text' name = 'lastName' class = 'form-control' value="<%= user.lastName %>" required>
+				<input type = 'text' name = 'lastName' class = 'form-control' value="<%= user.lastName %>" placeholder="Steele" required>
 			</div>
 			<div class="form-group">
                 <label for="email">E-Mail</label>
-                <input class="form-control" type="email" id="email" name="email" value="<%= user.email %>" required>
+                <input class="form-control" type="email" id="email" name="email" value="<%= user.email %>" placeholder="colt123@gmail.com" required>
             </div>
-            
-            <!--<div class="form-group">-->
-            <!--    <label for="avatar">Avatar</label>-->
-            <!--    <input class="form-control" type="text" id="avatar" name="avatar" value="<%= user.avatar %>">-->
-            <!--</div>-->
             
             <div class="form-group">
                 <label for="avatar">Avatar</label>
@@ -38,27 +35,42 @@
             
 			<div class="form-group">
                 <label for="about">About You</label>
-                <input class="form-control" type="text" id="about" name="about" value="<%= user.about %>">
+                <input class="form-control" type="text" id="about" name="about" value="<%= user.about %>" placeholder="Tell us something about you...">
             </div>
             <div class="form-group">
                 <label for="facebook">Facebook</label>
-                <input class="form-control" type="text" id="facebook" name="facebook" value="<%= user.facebook %>">
+                <input class="form-control" type="text" id="facebook" name="facebook" value="<%= user.facebook %>" placeholder="Facebook Profile Link">
             </div>
             <div class="form-group">
                 <label for="instagram">Instagram</label>
-                <input class="form-control" type="text" id="instagram" name="instagram" value = "<%= user.instagram %>">
+                <input class="form-control" type="text" id="instagram" name="instagram" value = "<%= user.instagram %>" placeholder="Instagram Profile Link">
             </div>
             <div class="form-group">
                 <label for="twitter">Twitter</label>
-                <input class="form-control" type="text" id="twitter" name="twitter" value="<% user.twitter %>">
+                <input class="form-control" type="text" id="twitter" name="twitter" value="<% user.twitter %>" placeholder="Twitter Profile Link">
             </div>
 			<div class="form-group">
 				<label for="adminCode">Admin Code</label>
 				<input type="password" name = 'adminCode' class="form-control" id="adminCode" placeholder="Only for Admin">
 			</div>
-			<button type="submit" class="btn btn-primary float-right mb-5">Submit</button>
+			<div class="form-group">
+                <label for="current-password">Current Password</label>
+                <input type="password" class="form-control" name="currentPassword" id="current-password" placeholder="Current Password (Required to Update Profile)" required>
+            </div>
+			<div class="form-group">
+                <label for="new-password">New Password</label>
+                <input type="password" class="form-control" name="newPassword" id="new-password" placeholder="New Password">
+            </div> 
+            <div class="form-group">
+                <label for="password-confirmation">Password Confirmation</label>
+                <input type="password" class="form-control" name="passwordConfirmation" id="password-confirmation" placeholder="Password Confirmation">
+            </div>
+            <small id="validation-message"></small>
+			<button id = "update-profile" type="submit" class="btn btn-primary float-right mb-5">Update</button>
 		</form>
 	</div>
 </div>
+
+<script src = "/scripts/profile-update.js"></script>
 
 <%- include('../partials/footer') %>

@@ -1,82 +1,97 @@
-var Blog = require('../models/blog'),
-	Comment = require('../models/comment');
+const Blog = require('../models/blog');
+const Comment = require('../models/comment');
+const User = require("../models/user");
+const { cloudinary } = require('../cloudinary');
 
-var {
-    cloudinary
-} = require('../cloudinary');
-
-var middlewareObj = {};
-
-// To check if the user is Logged in or not
-middlewareObj.isLoggedIn = function(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	}
-	req.flash('error',"You need to be Logged in!");
-	res.redirect("/login");
-};
-
-
-// Check Blog Ownership
-middlewareObj.checkBlogOwnership = function(req, res, next){
-	// is user logged in
-	if(req.isAuthenticated()){
-		Blog.findById(req.params.id , function(err, foundBlog){
-			if(err){
-				res.redirect('back');
-			} else {
-			    if(foundBlog.author.id.equals(req.user._id) || req.user.isAdmin){
-			    	next();
-			    } else {
-			    	res.redirect('back');
-			    }
-			}
-		});
-	} else {
+const middleware = {
+	
+	// Async Error Handler Middleware
+	asyncErrorHandler: (fn) =>
+		(req, res, next) => {
+		    Promise.resolve(fn(req, res, next)).catch(next);
+		},
+	
+	// To delete the profile image
+	deleteProfileImage: async req => {
+	    if (req.file) await cloudinary.v2.uploader.destroy(req.file.public_id);
+	},
+	
+	// To check whether the user is Logged in or not
+	isLoggedIn: (req,res,next) => {
+		if(req.isAuthenticated()) return next();
+		req.flash('error',"You need to be Logged in!");
+		res.redirect("/login");
+	},
+	
+	// Checking if the user owns the profile
+	isProfileOwner: (req,res,next) => {
+		if(req.isAuthenticated()){
+			if(req.params.id === req.user.id || req.user.isAdmin) return next();
+			return res.redirect('back');
+		} 
 		res.redirect('back');
-	}
-};
+	},
+	
+	// To check if the current user is the owner of the Blog
+	isBlogOwner: async (req,res,next) => {
+		if(req.isAuthenticated()){
+			let blog = await Blog.findById(req.params.id);
+		    if(blog.author.id.equals(req.user._id) || req.user.isAdmin) return next();
+	    	return res.redirect('back');
+		}
+		return res.redirect('back');
+	},
 
-
-// Check Comment Ownership
-middlewareObj.checkCommentOwnership = function(req,res,next){
-	if (req.isAuthenticated()){
-		Comment.findById(req.params.comment_id,function(err,foundComment){
-			if(err){
-				res.redirect('back');
-			} else {
-				if (foundComment.author.id.equals(req.user._id) || req.user.isAdmin){
-					next();
-				} else {
-					res.redirect('back');
-				}
-			}
-		});
-	} else {
-		res.redirect('back');
-	}
-};
-
-middlewareObj.checkProfileOwnership = function(req,res,next){
-	if(req.isAuthenticated()){
-		// console.log(currentUser);
-		if(req.params.id === req.user.id || req.user.isAdmin){
+	// To check if the user is comment owner
+	isCommentOwner: async (req,res,next) => {
+		if (req.isAuthenticated()){
+			let comment = await Comment.findById(req.params.comment_id);
+			if (comment.author.id.equals(req.user._id) || req.user.adminCode === process.env.ADMIN_CODE) return next();
+			return res.redirect("back");
+		} 
+		return res.redirect('back');
+	},
+	
+	// is current password of user is correct when user is trying to update profile
+	isValidPassword: async (req, res, next) => {
+		const { user } = await User.authenticate()(req.user.username, req.body.currentPassword);
+		if(user){
+			// add user to res.locals
+			res.locals.user = user;
 			next();
 		} else {
-			res.redirect('back');
+			middleware.deleteProfileImage(req);
+			req.flash("error", "Incorrect Current Password");
+			res.redirect("/users/" + req.user._id + "/edit");
 		}
-	} else {
-		res.redirect('back');
-	}
+	},
+	
+	// is new password and confirmation password matches
+	changePassword: async ( req, res, next ) => {
+		const { user } = await User.authenticate()(req.user.username, req.body.currentPassword);	
+		const {
+			newPassword,
+			passwordConfirmation
+		} = req.body;
+		if(newPassword && !passwordConfirmation){
+			middleware.deleteProfileImage(req);
+			req.flash("error", "Missing Password Confirmation");
+			return res.redirect("/users/" + user._id + "/edit");
+		}else if(newPassword && passwordConfirmation){
+			const { user } = res.locals;
+			if(newPassword === passwordConfirmation){
+				await user.setPassword(newPassword);
+				next();
+			} else {
+				middleware.deleteProfileImage(req);
+				req.flash("error", "Password Mismatched!");
+				return res.redirect("/users/" + user._id + "/edit");
+			}
+		} else {
+			next();
+		}
+	},
+	
 };
 
-middlewareObj.asyncErrorHandler = (fn) =>
-(req, res, next) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
-};
-
-middlewareObj.deleteProfileImage = async req => {
-    if (req.file) await cloudinary.v2.uploader.destroy(req.file.public_id);
-};
-
-module.exports = middlewareObj;
+module.exports = middleware;

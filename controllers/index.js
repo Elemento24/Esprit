@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const passport = require('passport');
 const util = require('util');
+const { deleteProfileImage } = require('../middleware');
 const crypto = require('crypto');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -14,32 +15,45 @@ module.exports = {
 	
 	// Show the Register Form
 	getRegister(req,res,next){
-		res.render('register');
+		res.render('register',{
+		    username: '',
+		    firstName: '',
+		    lastName: '',
+		    email: '',
+		    about: '',
+		    facebook: '',
+		    twitter: '',
+		    instagram: '',
+		    adminCode: ''
+		});
 	},
 
     // Handling the Register Logic
     async postRegister(req, res, next){
-        var newUser = new User({
-			username: req.body.username,
-			firstName : req.body.firstName,
-			lastName : req.body.lastName,
-			email: req.body.email,
-			avatar: req.body.avatar,
-			about: req.body.about,
-			facebook: req.body.facebook,
-			instagram: req.body.instagram,
-			twitter: req.body.twitter
-		});
-		
-	    if(req.body.adminCode === process.env.ADMIN_CODE){
-		    newUser.isAdmin = true;
-		}
-		
-	    let user = await User.register(newUser, req.body.password);
-	    passport.authenticate('local')(req,res,function(){
-			req.flash('success', 'Welcome to Medium, ' + user.username + '!')
-			res.redirect('/blogs');
-		});
+        try{
+            if(req.file){
+                const {secure_url, public_id} = req.file;
+                req.body.avatar = {secure_url, public_id};
+            }
+    	    let user = await User.register(new User(req.body), req.body.password);
+		    req.login(user, function(err){
+		        if(err) return next(err);
+    			req.flash('success', 'Welcome to Medium, ' + user.username + '!')
+    			res.redirect('/blogs');
+		    });
+        } catch (err){
+            deleteProfileImage(req);
+            const {
+                username, firstName, lastName, email, about, facebook, twitter, instagram, adminCode
+            } = req.body;
+            let error = err.message;
+            if(error.includes('validation failed') && error.includes('expected `email` to be unique')){
+                error = 'A user with the given email is already registered!';
+            }
+            res.render('register',{
+                username, firstName, lastName, email, about, facebook, twitter, instagram, adminCode, error
+            });
+        }
 	},
 
 	// Show Login Form
@@ -47,7 +61,7 @@ module.exports = {
 		res.render('login');
 	},
 	
-	// handling login logic
+	// Handling login logic
 	async postLogin(req,res,next){
 		passport.authenticate('local',function(err,user,info){
 			if(err){
