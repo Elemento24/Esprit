@@ -88,6 +88,14 @@
     		</div>
     	</div>
     	
+    	<form action="/blogs" method="GET">
+			<fieldset>
+				<legend>Search</legend>
+				<label for="search">Search</label>
+				<input type="text" placeholder="Search" name="search" id="search" value = "<%= query.search %>">
+			</fieldset>
+			<input type = "submit" value = "Search">
+		</form>
 
 		
     	<div class="container">

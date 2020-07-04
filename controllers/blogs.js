@@ -7,12 +7,17 @@ module.exports = {
     
     // Blogs Index
     async blogsIndex(req,res,next){
-        let blogs = await Blog.paginate({},{
+        const { dbQuery } = res.locals;
+        delete res.locals.dbQuery;
+        let blogs = await Blog.paginate(dbQuery,{
     		page: req.query.page || 1,
     		limit: 6,
     		sort: "-_id"
         });
         blogs.page = Number(blogs.page);
+        if (!blogs.docs.length && res.locals.query) {
+			req.flash("error","No Blog Matched Your Query");
+        }
         res.render('blogs/index', {blogs});
     },
     

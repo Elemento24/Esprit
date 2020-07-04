@@ -3,17 +3,17 @@
     <ul class="pagination justify-content-center">
         <% if(blogs.page - 1) { %>
             <li class='page-item'>
-            	<a class="page-link" href="/blogs?page=<%= blogs.page - 1 %>">Previous</a>
+            	<a class="page-link" href="<%= paginateUrl %><%= blogs.page - 1 %>">Previous</a>
             </li>
         <% } %>
         <% for(let i = 1; i <= blogs.pages; i++) { %>
             <li class="page-item <%= blogs.page === i ? 'active' : '' %>" >
-        	    <a class="page-link" href="/blogs?page=<%= i %>"><%= i %></a>
+        	    <a class="page-link" href="<%= paginateUrl %><%= i %>"> <%= i %></a>
     	    </li>
         <% } %>
         <% if((blogs.page + 1) <= blogs.pages) { %>
             <li class='page-item'>
-        	    <a class="page-link" href="/blogs?page=<%= blogs.page + 1 %>">Next</a>
+        	    <a class="page-link" href="<%= paginateUrl %><%= blogs.page - 1 %>">Next</a>
         	</li>
         <% } %>
     </ul>

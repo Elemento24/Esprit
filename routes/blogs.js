@@ -14,11 +14,11 @@ var express = require("express"),
 		blogEdit,
 		blogUpdate,
 		blogDestroy	}   = require("../controllers/blogs"),
-	{ asyncErrorHandler, isLoggedIn, isBlogOwner } = require("../middleware");
+	{ asyncErrorHandler, isLoggedIn, isBlogOwner, searchAndFilterBlogs } = require("../middleware");
 
 
 // Index Route
-router.get("/", asyncErrorHandler(blogsIndex));
+router.get("/",  asyncErrorHandler(searchAndFilterBlogs) ,asyncErrorHandler(blogsIndex));
 
 // New Route
 router.get("/new", isLoggedIn , blogNew );

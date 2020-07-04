@@ -2,6 +2,11 @@ const Blog = require('../models/blog');
 const Comment = require('../models/comment');
 const User = require("../models/user");
 const { cloudinary } = require('../cloudinary');
+// const { query } = require('express');
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
 
 const middleware = {
 	
@@ -52,7 +57,7 @@ const middleware = {
 		return res.redirect('back');
 	},
 	
-	// is current password of user is correct when user is trying to update profile
+	// Is current password of user is correct when user is trying to update profile
 	isValidPassword: async (req, res, next) => {
 		const { user } = await User.authenticate()(req.user.username, req.body.currentPassword);
 		if(user){
@@ -66,7 +71,7 @@ const middleware = {
 		}
 	},
 	
-	// is new password and confirmation password matches
+	// Is new password and confirmation password matches
 	changePassword: async ( req, res, next ) => {
 		const { user } = await User.authenticate()(req.user.username, req.body.currentPassword);	
 		const {
@@ -91,6 +96,36 @@ const middleware = {
 			next();
 		}
 	},
+	
+	// Search & Filter Middleware
+	async searchAndFilterBlogs(req, res, next) {
+        const queryKeys = Object.keys(req.query);
+
+        if (queryKeys.length) {
+            const dbQueries = [];
+            let { search } = req.query;
+
+            if (search) {
+                search = new RegExp(escapeRegExp(search), 'gi');
+                dbQueries.push({
+                    $or: [{
+                            title: search
+                		}]
+                });
+            }
+
+            res.locals.dbQuery = dbQueries.length ? {
+                $and: dbQueries
+            } : {};
+        }
+
+        res.locals.query = req.query;
+        if(queryKeys.indexOf("page") > 0)
+        	queryKeys.splice(queryKeys.indexOf('page'), 1);
+        const delimiter = queryKeys.length ? '&' : '?';
+        res.locals.paginateUrl = req.originalUrl.replace(/(\?|\&)page=\d+/g, '') + `${delimiter}page=`;
+        next();
+    }
 	
 };
 
