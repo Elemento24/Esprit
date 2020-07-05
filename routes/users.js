@@ -18,6 +18,7 @@ var express = require('express'),
 		getProfile,
 		editProfile,
 		updateProfile,
+		deleteProfile,
 		getFollow,
 		getNotifications,
 		handleNotification,
@@ -42,6 +43,10 @@ router.put('/users/:id',
 	asyncErrorHandler(isValidPassword),
 	asyncErrorHandler(changePassword),
 	asyncErrorHandler(updateProfile));
+	
+	
+// Delete User Profile
+router.delete('/users/:id',isProfileOwner, asyncErrorHandler(deleteProfile));
 
 
 // Follows a User

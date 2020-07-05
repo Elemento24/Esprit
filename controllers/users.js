@@ -83,7 +83,32 @@ module.exports = {
         req.session.success = 'Profile Updated Successfully!';
         res.redirect('/users/' + user._id);
     },
-
+    
+    // Delete User Profile
+    async deleteProfile(req,res,next){
+        let user = await User.findById(req.params.id);
+        if(user.avatar.secure_url !== '/images/default-profile.jpeg'){
+		    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+        }
+        
+    	let blogs = await Blog.find().where('author.id').equals(req.params.id);
+    	for(const blog of blogs){
+            for(const image of blog.images){
+    		    await cloudinary.v2.uploader.destroy(image.public_id);
+        	}
+        	await blog.remove();
+    	}
+    	
+    	let comments = await Comment.find().where('author.id').equals(req.params.id);
+    	for(const comment of comments){
+    	    await comment.remove();
+    	}
+    	
+    	await user.remove();
+    	req.flash('success', 'Hope to see you soon!');
+        res.redirect('/blogs');
+    },
+    	
     // Follows a User
     async getFollow(req, res, next){
         let user = await User.findById(req.params.id);
@@ -92,7 +117,6 @@ module.exports = {
 		req.flash('success','Successfully followed ' + user.username + '!');
 		res.redirect('/users/' + req.params.id);
     },
-    
     
     // Views All Notifications
     async getNotifications(req, res, next){
@@ -104,7 +128,6 @@ module.exports = {
 		res.render('notifications/index',{ allNotifications});
     },
     
-    
     // Handle the Notifications
     async handleNotification(req, res, next){
         let notification = await Notification.findById(req.params.id);
@@ -112,7 +135,6 @@ module.exports = {
 		notification.save();
 		res.redirect('/blogs/' + notification.blogId);
     },
-    
     
     // Show all the Blogs of a User
     async showUserBlogs(req, res, next){

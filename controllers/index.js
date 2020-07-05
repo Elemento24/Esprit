@@ -58,6 +58,8 @@ module.exports = {
 
 	// Show Login Form
 	getLogin(req,res,next){
+	    if(req.isAuthenticated()) return res.redirect('/blogs');
+	    if(req.query.returnTo) req.session.redirectTo = req.headers.referer;
 		res.render('login');
 	},
 	
@@ -79,8 +81,10 @@ module.exports = {
 					req.flash('error',err.message);
 					return res.redirect('/login');
 				}
-				req.flash('success','Welcome back ' + user.username + '!');
-				res.redirect('/blogs');
+				const redirectUrl = req.session.redirectTo || "/";
+    			delete req.session.redirectTo;
+    			req.flash('success','Welcome back ' + user.username + '!');
+    			res.redirect(redirectUrl);
 			});
 		})(req,res,next);
 	},

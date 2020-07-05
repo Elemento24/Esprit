@@ -96,6 +96,11 @@
                         	    <% if( currentUser && user.id == currentUser._id || currentUser && currentUser.adminCode === process.env.ADMIN_CODE){ %>
                                     <a href = "/users/<%= user._id %>/edit" id = "editUserBtn" class = "mt-2 btn btn-primary"><i class="fas fa-edit"></i>  Edit Profile</a>
                                 <% } %>
+                            	<% if( currentUser && user.id == currentUser._id || currentUser && currentUser.adminCode === process.env.ADMIN_CODE){ %>
+	    							<form action='/users/<%= user._id %>?_method=DELETE' method='POST'>
+										<input type='Submit' class='btn btn-danger btn-sm' value='Delete'>
+									</form>
+                                <% } %>
                         	</div>
                     	</div>
                     </div>
