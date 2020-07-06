@@ -47,8 +47,9 @@ module.exports = {
     	let user = await User.findById(req.user._id).populate('followers');
     	let newNotification = {
     	    username: req.user.username,
-    	    blogId: blog.id
-    	}
+    	    blogId: blog.id,
+    	    blogTitle: blog.title
+    	};
     	for (const follower of user.followers){
 			var notification = await Notification.create(newNotification);
 			follower.notifications.push(notification);

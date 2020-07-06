@@ -20,7 +20,9 @@ module.exports = {
        let user = await User.findById(req.params.id);
        let blogs = await Blog.find().where('author.id').equals(user._id);
        let comments = await Comment.find().where('author.id').equals(user._id);
-       res.render('users/profile', {user, blogs, comments});
+       let followers = await user.populate('followers');
+       let following = await user.populate('following');
+       res.render('users/profile', {user, blogs, comments, followers, following});
     },
     
     // Edit User Profile
@@ -112,6 +114,7 @@ module.exports = {
     // Follows a User
     async getFollow(req, res, next){
         let user = await User.findById(req.params.id);
+        let loggedUser  = res.locals.currentUser;
         
         var followedUser = user.followers.some(function(user){
             return user.equals(req.user._id);
@@ -119,13 +122,16 @@ module.exports = {
         
         if(followedUser){
             await user.followers.pull(req.user._id);
+            await loggedUser.following.pull(user._id);
     		req.flash('success','Successfully unfollowed ' + user.username + '!');
         } else {
             await user.followers.push(req.user.id);
+            await loggedUser.following.push(user._id);
     		req.flash('success','Successfully followed ' + user.username + '!');
         }
         
 		user.save();
+		loggedUser.save();
 		res.redirect('/users/' + req.params.id);
     },
     
