@@ -112,9 +112,20 @@ module.exports = {
     // Follows a User
     async getFollow(req, res, next){
         let user = await User.findById(req.params.id);
-		user.followers.push(req.user.id);
+        
+        var followedUser = user.followers.some(function(user){
+            return user.equals(req.user._id);
+        });
+        
+        if(followedUser){
+            await user.followers.pull(req.user._id);
+    		req.flash('success','Successfully unfollowed ' + user.username + '!');
+        } else {
+            await user.followers.push(req.user.id);
+    		req.flash('success','Successfully followed ' + user.username + '!');
+        }
+        
 		user.save();
-		req.flash('success','Successfully followed ' + user.username + '!');
 		res.redirect('/users/' + req.params.id);
     },
     

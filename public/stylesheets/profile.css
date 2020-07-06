@@ -151,7 +151,7 @@ a.active:after {
 }
 
 .bubble a {
-  color: black;
+  /*color: black;*/
   font-size: 12px;
   text-align: center;
 }
@@ -204,6 +204,7 @@ a.active:after {
 
 #editUserBtn{
   color: white;
+  font-size: 1rem;
 }
 
 #userMail{

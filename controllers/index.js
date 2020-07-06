@@ -81,7 +81,7 @@ module.exports = {
 					req.flash('error',err.message);
 					return res.redirect('/login');
 				}
-				const redirectUrl = req.session.redirectTo || "/";
+				const redirectUrl = req.session.redirectTo || "/blogs";
     			delete req.session.redirectTo;
     			req.flash('success','Welcome back ' + user.username + '!');
     			res.redirect(redirectUrl);

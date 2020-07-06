@@ -15,10 +15,9 @@ module.exports = {
     		sort: "-_id"
         });
         blogs.page = Number(blogs.page);
-        // eval(require('locus'));
-        if (!blogs.docs.length && res.locals.query) {
-			req.flash("error","No Blog Matched Your Query");
-        }
+//         if (!blogs.docs.length && res.locals.query) {
+// 			req.flash("error","No Blog Matched Your Query");
+//         }
         res.render('blogs/index', {blogs});
     },
     
