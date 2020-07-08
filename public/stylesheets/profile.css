@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merienda+One&display=swap');
+
+body {
+  font-family: 'Cabin', sans-serif;
+}
+
+h3{
+  font-family: 'Merienda One', cursive;
+}
+
 
 ol,
 ul {
@@ -32,7 +42,7 @@ a:focus {
 
 
 body {
-  font: normal 14px/20px 'Open Sans', sans-serif;
+  font: normal 14px/20px;
   background: url('/images/BG.jpg') top/cover no-repeat;
   /*color: #333;*/
 }
@@ -46,7 +56,6 @@ body {
   position: relative;
   overflow: hidden;
   background: url(/images/pro.jpeg) top/cover no-repeat;
-  /*background: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1053&q=80') top/cover no-repeat;*/
 }
 
 .right-menu {
@@ -112,7 +121,7 @@ a.active:after {
 .avatar img {
   height: 250px;
   width: 250px;
-  box-shadow: 4px 4px rgba(0,0,0,0.25);
+  box-shadow: 7px 7px 10px rgba(0,0,0,0.5);
   background: #fff;
   border-radius: 50%;
   object-fit: cover;
@@ -144,8 +153,7 @@ a.active:after {
 }
 
 .bubble h3 {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 18px;
   line-height: 16px;
   text-transform: uppercase;
 }
@@ -211,10 +219,11 @@ a.active:after {
   color: black;
 }
 
-.fol{
+a.fol{
   display:block;
   margin-top: 8px;
   text-decoration:none;
   color:black;
-  font-weight: bolder;
+  font-size:1em;
+  letter-spacing:1;
 }

@@ -123,7 +123,7 @@ module.exports = {
         const msg = {
             to: email,
             from: 'mittalvishesh021@gmail.com',
-            subject: 'Medium - Forgot Password / Reset',
+            subject: 'Esprit - Forgot Password / Reset',
             text: `You are receiving this because you (or someone else)
 		    have requested the reset of the password for your account.
 			Please click on the following link, or copy and paste it
@@ -189,7 +189,7 @@ module.exports = {
         const msg = {
             to: user.email,
             from: 'mittalvishesh021@gmail.com',
-            subject: 'Medium - Password Changed',
+            subject: 'Esprit - Password Changed',
             text: `Hello,
 	  	This email is to confirm that the password for your account has just been changed.
 	  	If you did not make this change, please hit reply and notify us at once.`.replace(/	  	/g, '')

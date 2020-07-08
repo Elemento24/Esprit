@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merienda+One&display=swap');
+
 /* Pagination */
 .page-link{
   color: #ffb88c;
@@ -27,16 +29,20 @@
 
 .jumbotron p{
   color:white;
+  font-family: "Cabin", sans-serif;
+  font-size: 1.25em;
 }
 
 .display-4{
   color:#ffb88c;
+  font-family: 'Merienda One', cursive;
 }
 
 .btni.mainBtn{
   border-radius:10px;
   padding: 6px;
   font-size: 16px;
+  font-family: "Cabin", sans-serif;
 }
 
 #search{
@@ -117,6 +123,7 @@
   animation: slide-in 0.75s cubic-bezier(0.625, 0.075, 0.11, 1.165);
   animation-timing-function: cubic-bezier(0.625, 0.075, 0.11, 1.165);
   font-size: 20px;
+  font-family: 'Cabin', cursive;
   font-weight: 200;
   z-index: 1;
   text-shadow: 1px 1.5px 4px black;
@@ -131,7 +138,7 @@
   animation: slide-in-slow 0.75s cubic-bezier(0.625, 0.075, 0.11, 1.165);
   animation-timing-function: cubic-bezier(0.625, 0.075, 0.11, 1.165);
   font-size: 30px;
-  font-weight: 600;
+  font-family: 'Merienda One', cursive;
   top: 30px;
   z-index: 1;
   text-shadow: 1px 4px 13px black, 1px 1px 5px black;
@@ -141,8 +148,8 @@
 
 .synopsis {
   color: #ffb88c;
+  font-family: 'Merienda One', cursive;
   font-size: 27px;
-  font-weight: 600;
   position:fixed;
   top:30px;
   left:30px;
@@ -151,6 +158,7 @@
 .para {
   color: rgba(255, 255, 255, 0.85);
   font-size: 19px;
+  font-family: "Cabin", sans-serif;
   line-height: 1.5;
   position: fixed;
   top: 75px;
@@ -165,6 +173,7 @@
   background: transparent;
   display: inline-block;
   font-size: 14px;
+  font-family: "Cabin", sans-serif;
   padding: 8px 7px;
   color: #FFB88C;
   transition: 0.5s;
@@ -258,3 +267,25 @@
     opacity: 1;
   }
 }
+
+@media screen and (max-width: 700px){
+    .display-4 {
+      font-size: 2em;
+    }
+    .jumbotron p{
+      font-size:1em;
+    }
+    .btni.mainBtn{
+      font-size:0.93em;
+    }
+    #searchForm{
+      width:50%;
+    }
+    .navbar-brand{
+      font-size:1.5em;
+    }
+    .nav-link{
+      font-size:1em;
+    }
+}
+

@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Merienda+One&display=swap');
+
+body{
+    font-family: 'Cabin', sans-serif;
+}
+
+h1,h2,h4 {
+    font-family: 'Merienda One', cursive;
+}
+
+
 /*=========================*/
 /*Validation Messages*/
 /*=========================*/
@@ -38,6 +49,21 @@
 
 #homeButton{
     color: white;
+}
+
+.navbar-brand{
+    font-family: 'Merienda One', cursive;
+    font-size: 2em;
+}
+
+.navbar-dark .navbar-toggler{
+    border:none;
+    outline:none;
+}
+
+.nav-link{
+    font-family: 'Cabin', sans-serif;
+    font-size:1.2em;
 }
 
 /*=======================*/
@@ -89,10 +115,26 @@
     left:2px;
     color:red;
 }
+.registerForm{
+    margin-top:40px;
+}
+
+/*=========================*/
+/*Login Page*/
+/*=========================*/
+
+.container-fluid.login{
+    width: 50%; 
+    margin: 40px auto;
+}
 
 /*======================*/
 /*Show page of Blogs*/
 /*======================*/
+
+.container-fluid.showCon{
+    width:85%;
+}
 
 .blogDelete {
     display: inline;
@@ -142,13 +184,6 @@
     color: black;
 }
 
-@media all and (max-width: 650px){
-    .blogImg{
-        height:400px;
-        width: 80%;
-    }
-}
-
 /*======================*/
 /*Header file of Blogs*/
 /*======================*/
@@ -181,3 +216,45 @@
     margin: 0 25%;
 }
 
+@media screen and (max-width: 700px){
+    
+    /*Show Page*/
+    .blogImg{
+        height:400px;
+        width: 100%;
+    }
+    .navbar-brand{
+      font-size:1.5em;
+    }
+    .nav-link{
+      font-size:1em;
+    }
+    .container-fluid.showCon{
+        width:100%;
+    }
+    .btn {
+        font-size: 0.85em;
+    }
+    
+    /*Notification*/
+    #notList{
+        margin: 0 10%;
+    }
+    h1{
+        font-size:2em;
+    }
+    
+    /* Login */
+    .container-fluid.login{
+        width: 90%; 
+        margin: 40px auto;
+    }
+    
+    /* Register */
+    .formClass{
+        width:90%;
+    }
+    .registerForm{
+        margin-top:10px;
+    }
+}
