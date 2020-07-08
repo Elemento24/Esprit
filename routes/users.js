@@ -3,10 +3,6 @@ var express = require('express'),
 	multer = require('multer'),
 	{storage} = require('../cloudinary'),
 	upload = multer({storage}),
-	User = require('../models/user'),
-	Comment = require('../models/comment'),
-	Blog = require("../models/blog"),
-	Notification = require("../models/notification"),
 	{
 		isProfileOwner,
 		isLoggedIn,
@@ -20,9 +16,11 @@ var express = require('express'),
 		updateProfile,
 		deleteProfile,
 		getFollow,
+		unfollowUser,
 		getNotifications,
 		handleNotification,
-		showUserBlogs } = require('../controllers/users.js');
+		showUserBlogs,
+		showFollowers } = require('../controllers/users.js');
 
 // User Index Route
 router.get('/users', asyncErrorHandler(getUsers));
@@ -49,8 +47,12 @@ router.put('/users/:id',
 router.delete('/users/:id',isProfileOwner, asyncErrorHandler(deleteProfile));
 
 
-// Follows a User
+// Follows or Unfollows a User from his profile
 router.get('/follow/:id', isLoggedIn, asyncErrorHandler(getFollow));
+
+
+// Unfollows a User from your profile
+// router.put('/users/:id/unfollow/:unfollow_id', isProfileOwner, asyncErrorHandler(unfollowUser));
 
 
 // Views All Notifications
@@ -63,6 +65,10 @@ router.get('/notifications/:id',isLoggedIn, asyncErrorHandler(handleNotification
 
 // Show all the Blogs of a User
 router.get('/users/:id/blogs', asyncErrorHandler(showUserBlogs));
+
+
+// Show all the Followers & Following of the User
+router.get('/users/:id/followers',asyncErrorHandler(showFollowers));
 
 
 module.exports = router;

@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<div class='row'>
+    <div class=col-md-6>
+        <h2 class="text-center" id="notHead"><%= user.username %>'s Followers</h2>
+        <div class="list-group text-center" id="notList">
+            <% user.followers.forEach(function(per) { %>
+                <a class="list-group-item list-group-item-action infoLink" href="/users/<%= per.id %>">
+                    <%= per.username %>
+                </a>
+            <% }); %>
+        </div>
+    </div>
+    
+    <div class=col-md-6>
+        <h2 class="text-center" id="notHead"><%= user.username %>'s Following</h2>
+        <div class="list-group text-center" id="notList">
+            <% user.following.forEach(function(per) { %>
+                <a class="list-group-item list-group-item-action infoLink" href="/users/<%= per.id %>">
+                    <%= per.username %>
+                </a>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

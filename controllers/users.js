@@ -20,16 +20,17 @@ module.exports = {
        let user = await User.findById(req.params.id);
        let blogs = await Blog.find().where('author.id').equals(user._id);
        let comments = await Comment.find().where('author.id').equals(user._id);
-       let followers = await user.populate('followers');
-       let following = await user.populate('following');
-       res.render('users/profile', {user, blogs, comments, followers, following});
+       res.render('users/profile', {
+           user, blogs, comments, 
+           title:`Esprit | ${user.username}`});
     },
     
     // Edit User Profile
     async editProfile(req, res, next){
         let user = await User.findById(req.params.id);
         res.render('users/edit',{
-            user
+            user,
+            title: 'Esprit | Edit Profile'
         });
     },
     
@@ -111,7 +112,7 @@ module.exports = {
         res.redirect('/blogs');
     },
     	
-    // Follows a User
+    // Follows or Unfollows a User from his profile
     async getFollow(req, res, next){
         let user = await User.findById(req.params.id);
         let loggedUser  = res.locals.currentUser;
@@ -130,10 +131,22 @@ module.exports = {
     		req.flash('success','Successfully followed ' + user.username + '!');
         }
         
-		user.save();
-		loggedUser.save();
+		await user.save();
+		await loggedUser.save();
 		res.redirect('/users/' + req.params.id);
     },
+    
+    // Unfollows a User from your profile
+//     async unfollowUser(req,res,next){
+//         let user = await User.findById(req.params.id);
+//         let unfollowedUser  = await User.findById(req.params.unfollow_id);
+//         await user.following.pull(req.user._id);
+//         await unfollowedUser.followers.pull(req.user._id);
+// 		req.flash('success','Successfully unfollowed ' + unfollowedUser.username + '!');
+// 		await user.save();
+// 		await unfollowedUser.save();
+// 		res.redirect('/users/${req.params.id}/followers');
+//     },
     
     // Views All Notifications
     async getNotifications(req, res, next){
@@ -142,7 +155,10 @@ module.exports = {
 			options: { sort: {"_id":-1} }
 		}).exec();
 		let allNotifications =  user.notifications;
-		res.render('notifications/index',{ allNotifications});
+		res.render('notifications/index',{ 
+		    allNotifications,
+		    title: 'Esprit | Notifications'
+		});
     },
     
     // Handle the Notifications
@@ -158,5 +174,11 @@ module.exports = {
         let user = await User.findById(req.params.id);
         let blogs = await Blog.find().where('author.id').equals(user._id).exec();
         res.render('users/blogs', {user, blogs});
+    },
+    
+    // Show all the Followers & Following of the User
+    async showFollowers(req,res,next){
+        let user = await User.findById(req.params.id).populate('followers following');
+        res.render('users/follow.ejs', {user, title:`Esprit | ${user.username}'s Followers`});
     }
 }

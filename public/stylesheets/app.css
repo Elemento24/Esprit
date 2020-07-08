@@ -1,4 +1,7 @@
-/* validation message */
+/*=========================*/
+/*Validation Messages*/
+/*=========================*/
+
 .color-red{
     color: red;
 }
@@ -6,9 +9,6 @@
 .color-green{
     color: green;
 }
-
-
-
 
 
 /*=========================*/
@@ -47,6 +47,17 @@
 .formClass{
     width:80%;
     margin:0 auto;
+}
+
+/*=======================*/
+/*Edit page of Blogs*/
+/*=======================*/
+
+.editImg{
+    width:150px;
+    height: 150px;
+    object-fit:cover;
+    border-radius: 10px;
 }
 
 /*=========================*/
@@ -116,6 +127,7 @@
 .infoLink{
     background-color: #343a40;
     color: white;
+    transition: all 0.3s ease;
 }
 
 .infoLink:hover{

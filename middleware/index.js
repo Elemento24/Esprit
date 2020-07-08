@@ -42,7 +42,7 @@ const middleware = {
 	isBlogOwner: async (req,res,next) => {
 		if(req.isAuthenticated()){
 			let blog = await Blog.findById(req.params.id);
-		    if(blog.author.id.equals(req.user._id) || req.user.isAdmin) return next();
+		    if(blog.author.id.equals(req.user._id) || req.user.adminCode === process.env.ADMIN_CODE) return next();
 	    	return res.redirect('back');
 		}
 		return res.redirect('back');

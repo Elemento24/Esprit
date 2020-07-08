@@ -24,7 +24,8 @@ module.exports = {
 		    facebook: '',
 		    twitter: '',
 		    instagram: '',
-		    adminCode: ''
+		    adminCode: '',
+		    title: "Esprit | Sign Up"
 		});
 	},
 
@@ -60,7 +61,9 @@ module.exports = {
 	getLogin(req,res,next){
 	    if(req.isAuthenticated()) return res.redirect('/blogs');
 	    if(req.query.returnTo) req.session.redirectTo = req.headers.referer;
-		res.render('login');
+		res.render('login',{
+		    title: 'Esprit | Login'
+		});
 	},
 	
 	// Handling login logic
@@ -98,7 +101,7 @@ module.exports = {
     
     // Forgot Password Route
     getForgot(req, res, next){
-        res.render('forgot');
+        res.render('forgot', {title: "Esprit | Forgot Password"});
     },
     
     // Handles the logic for forgot password
@@ -151,7 +154,8 @@ module.exports = {
             return res.redirect('/forgot');
         }
         res.render('reset', {
-            token
+            token, 
+            title: "Esprit | Reset Password"
         });
     },
     

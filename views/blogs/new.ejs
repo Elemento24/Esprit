@@ -1,5 +1,6 @@
 <%- include('../partials/header') %>
 
+
 <div class = 'container-fluid mt-4 formClass'>
 	<div id = "error" class = "alert alert-danger text-center mt-2" style = "display: none;" role = "alert"></div>
 	
@@ -8,12 +9,13 @@
 	</div>
 	
 	
-	<div id="editor">
+	<div>
 		<form method='POST' action='/blogs' enctype = "multipart/form-data" id = "newBlogForm">
 			
 			<div class='form-group text-center'>
 				<label for='image' class="custom-file-upload blogFile"><i class="fas fa-camera-retro blogIcon"></i></label>
 				<br><small>(At Least One Image is Required)</small>
+				<br><small>(You can upload upto 4 Images)</small>
 				<input class='form-control' id='image' accept='images/*' type='file' name='images' style="display: none;" multiple required>
 			</div>
 			

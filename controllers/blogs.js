@@ -23,7 +23,9 @@ module.exports = {
     
     // Blogs New
     blogNew(req,res,next){
-        res.render('blogs/new');
+        res.render('blogs/new',{
+            title: 'Esprit | New Blog'
+        });
     },
     
     // Blogs Create
@@ -62,7 +64,10 @@ module.exports = {
     // Blogs Show
     async blogShow(req, res, next){
         let blog = await Blog.findById(req.params.id).populate('comments likes').populate('comLikes');
-		res.render('blogs/show', {blog});
+		res.render('blogs/show', {
+		    blog,
+		    title: `Esprit | ${blog.title}`
+		});
     },
     
     // Blogs Like
@@ -89,7 +94,10 @@ module.exports = {
     // Blogs Edit
     async blogEdit(req, res, next){
         let blog = await Blog.findById(req.params.id);
-        res.render('blogs/edit', {blog});
+        res.render('blogs/edit', {
+            blog,
+            title: 'Esprit | Edit Blog'
+        });
     },
 
     // Blogs Update

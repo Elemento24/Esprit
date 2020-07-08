@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Blog App</title>
+		<title><%= title %></title>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet"	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<link rel="stylesheet"	href="/stylesheets/app.css">
@@ -20,57 +20,7 @@
 	</head>
 	<body>
 		
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div class='container-fluid px-4'>
-				<a class="navbar-brand" href='/'>Medium</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						 
-					<a id = 'homeButton' class="navbar-nav nav-link" href="/blogs">Home</a>
-					<ul class="navbar-nav ml-auto">
-						
-						<% if(!currentUser){ %>
-							<li class="nav-item active">
-								<a class="nav-link" href="/login">Login</a>
-							</li>
-							<li class="nav-item active">
-								<a class="nav-link" href="/register">Sign Up</a> 
-							</li>
-						<% } else { %>
-						
-							
-							<li class="nav-item-active dropdown">
-								<a id='navNotification' class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Notifications <span class="badge badge-secondary"><%= notifications.length %></span>
-								</a>
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<% notifications.forEach(function(notification) { %>
-                                       <a class="dropdown-item" href="/notifications/<%= notification.id %>">
-                                         <%= notification.username %> created a New Blog!
-                                       </a>
-	                        		<% }); %>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="/notifications">View Past Notifications</a>
-								</div>
-							</li>
-      
-    
-                            
-                            
-							<li class="nav-item active">
-								<a class="nav-link" href="/users/<%=currentUser._id%>">Signed In As <%= currentUser.username %></a>
-							</li>					
-							<li class="nav-item active">
-								<a class="nav-link" href="/logout">Logout</a>
-							</li>
-						<% } %>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		<%- include('./navbar') %>
 		
 		<div class='container mt-4'>
 			<% if(error && error.length > 0){ %>
@@ -84,3 +34,4 @@
 				</div>
 			<% } %>
 		</div>
+		

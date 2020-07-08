@@ -211,5 +211,10 @@ a.active:after {
   color: black;
 }
 
-
-/*skill bar*/
+.fol{
+  display:block;
+  margin-top: 8px;
+  text-decoration:none;
+  color:black;
+  font-weight: bolder;
+}
