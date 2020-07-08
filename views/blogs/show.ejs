@@ -1,12 +1,12 @@
 <%- include('../partials/header') %>
 
 
-	<div class = 'container-fluid' style="width: 85%;">	
+	<div class = 'container-fluid showCon'>	
 		<div class='row mt-4'>
 			
 			<div class='col-lg-3 mb-4'>
 				<div>
-					 <h4 class='text-center'>Submitted by <%= blog.author.username %></h4>
+					 <h4 class='text-center my-4'>Submitted by <%= blog.author.username %></h4>
 					 <div class="list-group text-center">
 		            	<a href = "/users/<%= blog.author.id %>" class="list-group-item list-group-item-action infoLink"><i class="fas fa-user-circle"></i> <%= blog.author.username %>'s Profile</a>
 						<a href="/users/<%= blog.author.id %>/blogs" class="list-group-item list-group-item-action infoLink"><i class="fas fa-blog"></i> <%= blog.author.username %>'s Blogs</a>
@@ -19,7 +19,7 @@
 		            	<% if(blog.summary.length) { %>
 		            		<p class = "text-justify"><%= blog.summary %></p>
 		            	<% } else { %>
-		            		<p><em>No Summary Provided by the Author</em></p>
+		            		<p class = "text-center"><em>No Summary Provided by the Author</em></p>
 		            	<% } %>
 		            </div>
 	            </div>
@@ -55,7 +55,7 @@
 					<hr>
 					<div class="card-body">
 						
-						<h3 class="card-title"><%= blog.title %></h3>
+						<h2 class="card-title"><%= blog.title %></h2>
 						<div class="float-right">
 	                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
 	                                data-target="#blogLikes">
@@ -90,7 +90,7 @@
 				            	<% if(blog.summary.length) { %>
 				            		<p class = "text-justify" style="font-size: 14px;"><%= blog.summary %></p>
 				            	<% } else { %>
-				            		<p><em>No Summary Provided by the Author</em></p>
+				            		<p class="text-center"><em>No Summary Provided by the Author</em></p>
 				            	<% } %>
 				            </div>
 			            </div>

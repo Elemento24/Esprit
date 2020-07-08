@@ -29,7 +29,7 @@
     			</div>
     			<hr class="my-4">
     			<div>
-    				<p>Bacon ipsum dolor amet chuck salami shank tail bresaola. Flank tri-tip spare ribs, cow ham hamburger shankle biltong picanha pork belly turducken tail salami</p>
+    				<p>Blogging is to writing what extreme sports are to athletics: more free-form, more accident-prone, less formal, more alive. It is, in many ways, writing out loud...</p>
     			</div>
     			<a href="/blogs/new"><div class='btni mainBtn'>Add New Blog</div></a>
     			<a class="ml-2" href="/users"><div class='btni mainBtn'>View Users</div></a>
@@ -53,7 +53,13 @@
     							</div>
     							<div class="back">
     								<h3 class="synopsis">Summary</h3>
-    								<p class="para"><%= blog.summary.length  === 0 ? 'No Summary provided by the author' : blog.summary.substring(0,250) + '...' %></p>
+    								<p class="para">
+										<% if(blog.summary.length) { %>
+						            		<%= blog.summary.substring(0,250) %> + '...'
+						            	<% } else { %>
+						            		No Summary Provided by the Author
+						            	<% } %>
+									</p>
     								<a href = "/blogs/<%= blog.id %>"><div class="btni" id = "readMore">Read More</div></a>
     								<span class="btni" id="comment"><i class="fas fa-comment"></i><%= blog.comments.length %></span>
     								<span class="btni" id="like"><i class="fas fa-thumbs-up"></i><%= blog.likes.length %></span>
