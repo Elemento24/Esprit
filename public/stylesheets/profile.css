@@ -140,6 +140,7 @@ a.active:after {
   position: relative;
 }
 
+
 .bubble:after {
   content: '';
   top: -70px;
@@ -159,7 +160,6 @@ a.active:after {
 }
 
 .bubble a {
-  /*color: black;*/
   font-size: 12px;
   text-align: center;
 }
@@ -222,8 +222,78 @@ a.active:after {
 a.fol{
   display:block;
   margin-top: 8px;
-  text-decoration:none;
-  color:black;
+  text-decoration:underline;
+  color: black;
   font-size:1em;
   letter-spacing:1;
+}
+
+@media screen and (max-width: 700px){
+    
+    /*Refers to the entire card*/
+    .wrap {
+        width:85%;
+        height: 600px;
+        margin: 100px auto;
+        position: relative;
+    }
+    
+    /*For the Right-Menu*/
+    .right-menu {
+        width: 20%;
+        position: absolute;
+        border-radius: 0px 3px 3px 0px;
+    }
+    .right-menu a{
+        text-align: center;
+        padding: 45px 20px;
+        color: #B7B7B7;
+    }
+    .right-menu a span{
+        text-align:center;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    
+    /*For the Footer*/
+    .footer a span {
+        font-size: 12px;
+        font-weight: 500;
+    }
+    .footer {
+        bottom: 0;
+        width: 100%;
+        min-height: 80px;
+        position: absolute;
+        border: none;
+    }
+    .footer a {
+        width: 40%;
+        border: none;
+        margin-right: 0px;
+        float: left;
+        text-align: center;
+        padding: 15px 10px;
+        line-height: 20px;
+    }
+    
+    /*Profile Image*/
+    .avatar {
+        margin-right: 20%;
+        padding-top: 50px;
+    }
+    
+    .avatar img {
+        height: 200px;
+        width: 200px;
+        box-shadow: 7px 7px 10px rgba(0,0,0,0.5);
+    }
+    
+    /*For the Bubble*/
+    .bubble {
+        width: 80%;
+        margin: 0 auto;
+        line-height: normal;
+        margin-top: 25px;
+    }
 }

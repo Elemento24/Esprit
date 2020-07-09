@@ -5,6 +5,7 @@ var express = require('express'),
 	upload = multer({storage}),
 	{asyncErrorHandler} = require('../middleware'),
 	{landingPage, 
+	getAbout,
 	getRegister,
 	postRegister,
 	getLogin,
@@ -17,6 +18,10 @@ var express = require('express'),
 
 // Landing Page Route
 router.get('/', landingPage);
+
+
+// About Page Route
+router.get('/about', getAbout);
 
 
 // Show the Register Form

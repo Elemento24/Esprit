@@ -7,11 +7,18 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
+    
 	
 	// Landing Page Route
 	landingPage(req,res,next){
 		res.render('landing');
 	},
+	
+	// get about page
+	getAbout(req, res, next){
+	    res.render('about', {title: "Esprit | About Us"});
+	},
+	
 	
 	// Show the Register Form
 	getRegister(req,res,next){

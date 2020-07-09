@@ -32,7 +32,7 @@ const middleware = {
 	// Checking if the user owns the profile
 	isProfileOwner: (req,res,next) => {
 		if(req.isAuthenticated()){
-			if(req.params.id === req.user.id || req.user.isAdmin) return next();
+			if(req.params.id === req.user.id || req.user.adminCode === process.env.ADMIN_CODE) return next();
 			return res.redirect('back');
 		} 
 		res.redirect('back');
