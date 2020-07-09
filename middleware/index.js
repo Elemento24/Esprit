@@ -26,6 +26,16 @@ const middleware = {
 		if(req.isAuthenticated()) return next();
 		req.flash('error',"You need to be Logged in!");
 		req.session.redirectTo = req.originalUrl;
+		if(req.session.redirectTo.includes("like") && req.session.redirectTo.includes("comments")){
+			var urlArr = req.session.redirectTo.split("/");
+			urlArr.splice(urlArr.indexOf('comments'), 3);
+			req.session.redirectTo = urlArr.join('/');
+		}
+		else if(req.session.redirectTo.includes("like")){
+			var urlArr = req.session.redirectTo.split("/");
+			urlArr.splice(urlArr.indexOf('like'), 1);
+			req.session.redirectTo = urlArr.join('/');
+		}
 		res.redirect("/login");
 	},
 	
@@ -41,9 +51,17 @@ const middleware = {
 	// To check if the current user is the owner of the Blog
 	isBlogOwner: async (req,res,next) => {
 		if(req.isAuthenticated()){
-			let blog = await Blog.findById(req.params.id);
-		    if(blog.author.id.equals(req.user._id) || req.user.adminCode === process.env.ADMIN_CODE) return next();
-	    	return res.redirect('back');
+			if(req.params.id.length === 24){
+				let blog = await Blog.findById(req.params.id);
+				if(!blog){
+			        req.flash("error", "No blog matched your query");
+	    			return res.redirect("/blogs");
+				}
+			    if(blog.author.id.equals(req.user._id) || req.user.adminCode === process.env.ADMIN_CODE) return next();
+		    	return res.redirect('back');
+			}
+	        req.flash("error", "No blog matched your query");
+			return res.redirect("/blogs");
 		}
 		return res.redirect('back');
 	},

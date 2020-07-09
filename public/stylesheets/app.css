@@ -235,6 +235,9 @@ h1,h2,h4 {
     .btn {
         font-size: 0.75em;
     }
+    h4{
+        font-size:1.2em;
+    }
     
     /*Notification*/
     #notList{

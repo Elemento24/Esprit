@@ -17,21 +17,34 @@ module.exports = {
     
     // User Profile Route
     async getProfile(req, res, next){
-       let user = await User.findById(req.params.id);
-       let blogs = await Blog.find().where('author.id').equals(user._id);
-       let comments = await Comment.find().where('author.id').equals(user._id);
-       res.render('users/profile', {
-           user, blogs, comments, 
-           title:`Esprit | ${user.username}`});
+        if(req.params.id.length === 24){
+            let user = await User.findById(req.params.id);
+            if(user){
+                let blogs = await Blog.find().where('author.id').equals(user._id);
+                let comments = await Comment.find().where('author.id').equals(user._id);
+                return res.render('users/profile', {
+                   user, blogs, comments, 
+                   title:`Esprit | ${user.username}`
+                });
+            } 
+        }
+        req.flash("error", "No user matched your query");
+        return res.redirect("/blogs");
     },
     
     // Edit User Profile
     async editProfile(req, res, next){
-        let user = await User.findById(req.params.id);
-        res.render('users/edit',{
-            user,
-            title: 'Esprit | Edit Profile'
-        });
+        if(req.params.id.length === 24){
+            let user = await User.findById(req.params.id);
+            if(user){
+                return res.render('users/edit',{
+                    user,
+                    title: 'Esprit | Edit Profile'
+                });
+            }
+        } 
+        req.flash("error", "No user matched your query");
+        return res.redirect("/blogs");
     },
     
     // Update User Profile
@@ -178,7 +191,12 @@ module.exports = {
     
     // Show all the Followers & Following of the User
     async showFollowers(req,res,next){
-        let user = await User.findById(req.params.id).populate('followers following');
-        res.render('users/follow.ejs', {user, title:`Esprit | ${user.username}'s Followers`});
+        if(req.params.id.length === 24){
+            let user = await User.findById(req.params.id).populate('followers following');
+            if(user){
+                return res.render('users/follow.ejs', {user, title:`Esprit | ${user.username}'s Followers`});
+            }
+        }   req.flash("error", "No user matched your query");
+            res.redirect("/blogs");
     }
-}
+};

@@ -19,6 +19,7 @@ router.put('/:comment_id', asyncErrorHandler(isCommentOwner) , asyncErrorHandler
 // Destroy Comment
 router.delete('/:comment_id', asyncErrorHandler(isCommentOwner), asyncErrorHandler(commentDestroy));
 
+
 // Comment Like Route
 router.post("/:comment_id/like", isLoggedIn, asyncErrorHandler(commentLike)); 
 

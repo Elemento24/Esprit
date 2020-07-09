@@ -63,11 +63,17 @@ module.exports = {
 
     // Blogs Show
     async blogShow(req, res, next){
-        let blog = await Blog.findById(req.params.id).populate('comments likes').populate('comLikes');
-		res.render('blogs/show', {
-		    blog,
-		    title: `Esprit | ${blog.title}`
-		});
+        if(req.params.id.length === 24){
+            let blog = await Blog.findById(req.params.id).populate('comments likes').populate('comLikes');
+            if(blog){
+                return res.render('blogs/show', {
+        		    blog,
+        		    title: `Esprit | ${blog.title}`
+        		});
+            } 
+        }  
+        req.flash("error", "No blog matched your query");
+        return res.redirect("/blogs");
     },
     
     // Blogs Like
@@ -135,7 +141,7 @@ module.exports = {
 		blog.content = req.body.content;
 		blog.summary = req.body.summary;
 		await blog.save();
-		req.flash('success', "Blog successfully updated!")
+		req.flash('success', "Blog successfully updated!");
 		res.redirect('/blogs/' + req.params.id);
     },
 

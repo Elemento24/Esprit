@@ -270,16 +270,16 @@
 
 @media only screen and (max-width: 700px){
     .display-4 {
-      font-size: 2em;
+      font-size: 1.7em;
     }
     .jumbotron p{
       font-size:1em;
     }
     .btni.mainBtn{
-      font-size:0.85em;
+      font-size:0.75em;
     }
     #searchForm{
-      width:45%;
+      width:40%;
     }
     .navbar-brand{
       font-size:1.5em;
