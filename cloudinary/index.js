@@ -8,7 +8,7 @@ cloudinary.config({
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const storage = cloudinaryStorage({
   cloudinary,
-  folder: 'blog-app',
+  folder: 'Esprit',
   allowedFormats: ['jpeg', 'jpg', 'png'],
   filename: function (req, file, cb) {
   	let buf = crypto.randomBytes(16);

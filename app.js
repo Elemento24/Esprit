@@ -27,7 +27,7 @@ var indexRoutes = require('./routes/index'),
 	userRoutes = require('./routes/users');
 
 // MongoDB Setup
-var url = process.env.URL || 'mongodb://localhost:27017/medium';
+var url = process.env.DATABASE_URL || 'mongodb://localhost:27017/esprit';
  mongoose.connect(url,{
  	useUnifiedTopology: true,
 	useNewUrlParser: true,
