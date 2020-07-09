@@ -228,7 +228,7 @@ a.fol{
   letter-spacing:1;
 }
 
-@media screen and (max-width: 700px){
+@media only screen and (max-width: 700px){
     
     /*Refers to the entire card*/
     .wrap {
