@@ -17,7 +17,7 @@
                             <img class="vintalight__img" src="<%= blog.images[0].url %>?amp;h=750&amp;auto=compress&amp;cs=tinysrgb" alt="<%= blog.title %>">
                         </div>
                         <figcaption class="vintalight__caption" >
-                            <h3 class="vintalight__text" style="padding: 0 20px; text-align: center;"><%= blog.title %></h3>
+                            <h3 class="vintalight__text" style="padding: 0 20px; text-align: center;"><%= blog.title.substring(0,15) %>...</h3>
                         </figcaption>
                     </figure>
                 <% }); %>

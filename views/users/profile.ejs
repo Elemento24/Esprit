@@ -73,7 +73,7 @@
                     <div class="avatar">
                     	<div class="bubble">
                     		<div class="list-group mb-2">
-                    			<% var lim  = blogs.length < 10 ? blogs.length : 10 %>
+                    			<% var lim  = blogs.length < 7 ? blogs.length : 6 %>
                     			<% for(var i = 0; i < lim; i++){ %>
                     				<a class="list-group-item list-group-item-action list-group-item-success" href = "/blogs/<%= blogs[i]._id %>"><%= blogs[i].title %></a>
                     			<% } %>

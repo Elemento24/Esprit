@@ -48,110 +48,110 @@ background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5); /* W3C, IE 10+
   }
 }
 
-.vintalight__container:nth-child(1) {
+.vintalight__container:nth-child(6n+1) {
   transform: translate(40px, 30px) rotate(-30deg);
   z-index: 40;
 }
 
-.vintalight__container:nth-child(1):hover {
+.vintalight__container:nth-child(6n+1):hover {
   transform: scale(1.15) translate(40px, 30px) rotate(0);
 }
 
 @media screen and (max-width: 700px) {
-  .vintalight__container:nth-child(1) {
+  .vintalight__container:nth-child(6n+1) {
     transform: translate(0) rotate(-30deg);
   }
-  .vintalight__container:nth-child(1):hover {
+  .vintalight__container:nth-child(6n+1):hover {
     transform: scale(1.1) translate(0) rotate(0);
   }
 }
 
-.vintalight__container:nth-child(2) {
+.vintalight__container:nth-child(6n+2) {
   transform: translate(30px, 20px) rotate(7deg);
   z-index: 50;
 }
 
-.vintalight__container:nth-child(2):hover {
+.vintalight__container:nth-child(6n+2):hover {
   transform: scale(1.15) translate(30px, 20px) rotate(0);
 }
 
 @media screen and (max-width: 700px) {
-  .vintalight__container:nth-child(2) {
+  .vintalight__container:nth-child(6n+2) {
     transform: translate(0) rotate(7deg);
   }
-  .vintalight__container:nth-child(2):hover {
+  .vintalight__container:nth-child(6n+2):hover {
     transform: scale(1.1) translate(0) rotate(0);
   }
 }
 
-.vintalight__container:nth-child(3) {
+.vintalight__container:nth-child(6n+3) {
   transform: translate(-20px, 20px) rotate(20deg);
   z-index: 40;
 }
 
-.vintalight__container:nth-child(3):hover {
+.vintalight__container:nth-child(6n+3):hover {
   transform: scale(1.15) translate(-20px, 20px) rotate(0);
 }
 
 @media screen and (max-width: 700px) {
-  .vintalight__container:nth-child(3) {
+  .vintalight__container:nth-child(6n+3) {
     transform: translate(0) rotate(20deg);
   }
-  .vintalight__container:nth-child(3):hover {
+  .vintalight__container:nth-child(6n+3):hover {
     transform: scale(1.1) translate(0) rotate(0);
   }
 }
 
-.vintalight__container:nth-child(4) {
+.vintalight__container:nth-child(6n+4) {
   transform: translate(40px, -10px) rotate(10deg);
   z-index: 30;
 }
 
-.vintalight__container:nth-child(4):hover {
+.vintalight__container:nth-child(6n+4):hover {
   transform: scale(1.15) translate(40px, -10px) rotate(0);
 }
 
 @media screen and (max-width: 700px) {
-  .vintalight__container:nth-child(4) {
+  .vintalight__container:nth-child(6n+4) {
     transform: translate(0) rotate(10deg);
   }
-  .vintalight__container:nth-child(4):hover {
+  .vintalight__container:nth-child(6n+4):hover {
     transform: scale(1.1) translate(0) rotate(0);
   }
 }
 
-.vintalight__container:nth-child(5) {
+.vintalight__container:nth-child(6n+5) {
   transform: translate(30px, -20px) rotate(-20deg);
   z-index: 20;
 }
 
-.vintalight__container:nth-child(5):hover {
+.vintalight__container:nth-child(6n+5):hover {
   transform: scale(1.15) translate(30px, -20px) rotate(0);
 }
 
 @media screen and (max-width: 700px) {
-  .vintalight__container:nth-child(5) {
+  .vintalight__container:nth-child(6n+5) {
     transform: translate(0) rotate(-20deg);
   }
-  .vintalight__container:nth-child(5):hover {
+  .vintalight__container:nth-child(6n+5):hover {
     transform: scale(1.1) translate(0) rotate(0);
   }
 }
 
-.vintalight__container:nth-child(6) {
+.vintalight__container:nth-child(6n) {
   transform: translate(30px, -40px) rotate(-10deg);
   z-index: 40;
 }
 
-.vintalight__container:nth-child(6):hover {
+.vintalight__container:nth-child(6n):hover {
   transform: scale(1.15) translate(30px, -40px) rotate(0);
 }
 
 @media screen and (max-width: 700px) {
-  .vintalight__container:nth-child(6) {
+  .vintalight__container:nth-child(6n) {
     transform: translate(0) rotate(-10deg);
   }
-  .vintalight__container:nth-child(6):hover {
+  .vintalight__container:nth-child(6n):hover {
     transform: scale(1.1) translate(0) rotate(0);
   }
 }
